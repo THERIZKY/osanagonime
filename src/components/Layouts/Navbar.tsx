@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import NavButton from "../Elements/NavButton";
 
 const Navbar = () => {
 	return (
@@ -15,11 +16,7 @@ const Navbar = () => {
 							className="object-cover"
 						/>
 					</div>
-					<div className="button flex items-center gap-10 text-white">
-						<Link href={"/"}>Home</Link>
-						<Link href={"/popular"}>Popular Anime</Link>
-						<Link href={"/anime"}>All Anime</Link>
-					</div>
+					<NavButton gapSize="10" size="" hoverColor="slate-900" />
 				</div>
 			</div>
 		</>
