@@ -1,5 +1,5 @@
 import { collection, getDocs } from "firebase/firestore";
-import db from "./setup";
+import db from "../setup";
 
 export async function getAllData() {
 	const query = await getDocs(collection(db, "manga"));

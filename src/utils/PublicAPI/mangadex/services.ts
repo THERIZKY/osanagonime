@@ -1,4 +1,5 @@
 const axios = require("axios");
+const slugify = require("slugify");
 
 interface MangaData {
 	id: string;
@@ -18,7 +19,7 @@ export async function getDataManga(title: string) {
 				},
 			},
 		});
-		console.log(response);
+		// console.log(response);
 		return response.data.data;
 	} catch (err) {
 		console.log("error : ", err);
@@ -51,5 +52,38 @@ export async function getMangaCover(title: string) {
 		return coverLink;
 	} catch (err) {
 		console.log("error : ", err);
+	}
+}
+
+export async function getMangaDescription(title: string) {
+	try {
+		const selectedManga = await getDataManga(title);
+
+		const description = selectedManga[0].attributes.description.en;
+
+		return description;
+	} catch (err) {
+		console.error(err);
+	}
+}
+
+export async function getMangaDetails(title: string) {
+	try {
+		const selectedManga = await getDataManga(title);
+
+		// console.log(selectedManga);
+		const mangaTitle = selectedManga[0].attributes.title.en;
+		const mangaCover = await getMangaCover(title);
+		const mangaDescription = await getMangaDescription(title);
+		const mangaSlug = slugify(mangaTitle, { lower: true });
+
+		return {
+			mangaTitle,
+			mangaCover,
+			mangaDescription,
+			mangaSlug,
+		};
+	} catch (err) {
+		console.error(err);
 	}
 }
