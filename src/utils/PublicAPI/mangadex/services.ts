@@ -14,7 +14,6 @@ export async function getDataManga(title: string) {
 			params: {
 				title: title,
 				order: {
-					title: "asc",
 					relevance: "desc",
 				},
 			},

@@ -1,11 +1,14 @@
 import { collection, addDoc } from "firebase/firestore";
 import db from "../setup";
-export async function addDataManga(title: string) {
-	try {
-		await addDoc(collection(db, "manga"), {
-			title: title,
-		});
-	} catch (err) {
-		console.error(err);
-	}
-}
+
+export const createManga = async (data: any, idManga: number) => {
+	const docRef = await addDoc(collection(db, "manga"), {
+		mangaTitle: data.mangaTitle,
+		cover: data.mangaCover,
+		deskripsi: data.mangaDescription,
+		slug: data.mangaSlug,
+		idManga: idManga,
+	});
+
+	return docRef.id;
+};

@@ -1,26 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useState } from "react";
-import { json } from "stream/consumers";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+const axios = require("axios");
 
 const AddDataManga = () => {
-	const [title, setTitle] = useStatej;
-	const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+	const [title, setTitle] = useState("");
+	const router = useRouter();
+
+	const submitHandler = async (e: any) => {
 		e.preventDefault();
 
-		// console.log(title);
-
-		fetch("/api/manga", {
+		const res = await axios({
 			method: "POST",
-			body: JSON.stringify({
+			url: "http://localhost:3000/api/manga",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			data: JSON.stringify({
 				title,
 			}),
 		});
 
-		// const data = await responses.json();
-
-		// console.log(responses);
+		if (res.status === 200) {
+			router.push("/admin");
+		}
 	};
 
 	const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +42,7 @@ const AddDataManga = () => {
 						<form
 							method="post"
 							className="flex flex-col items-center gap-5 bg-orange-200 w-[500px] rounded-xl p-5"
-							onSubmit={submitHandler}
+							onSubmit={(e) => submitHandler(e)}
 						>
 							<label htmlFor="title">Judul Manga</label>
 							<input
