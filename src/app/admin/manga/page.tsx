@@ -42,7 +42,6 @@ const AdminManga = () => {
 								<th>Cover</th>
 								<th>Judul</th>
 								<th>Deskripsi</th>
-								<th>Rilis</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
@@ -50,19 +49,18 @@ const AdminManga = () => {
 							{data.map((item: dataManga, index: number) => (
 								<tr key={item.id} className="border-y-2">
 									<td>{index + 1}</td>
-									<td className=" flex justify-center p-5">
+									<td className="flex justify-center p-5 w-[250px]">
 										<Image
-											width={250}
-											height={250}
+											width={150}
+											height={150}
 											src={item.cover}
 											alt="cover-manga"
 										/>
 									</td>
-									<td>{item.mangaTitle}</td>
-									<td>{item.deskripsi}</td>
-									<td>2005</td>
-									<td>
-										<button className="bg-red-600 text-white px-3 py-2 rounded-md">
+									<td className="w-60">{item.mangaTitle}</td>
+									<td className="p-8">{item.deskripsi}</td>
+									<td className="w-[200px]">
+										<button className="bg-red-600 text-white px-6 py-2 rounded-md">
 											Delete
 										</button>
 									</td>

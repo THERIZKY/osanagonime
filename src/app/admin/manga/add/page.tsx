@@ -3,14 +3,21 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
 const axios = require("axios");
+
+// Import component
+import Loading from "@/components/Elements/Loading";
 
 const AddDataManga = () => {
 	const [title, setTitle] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 
 	const submitHandler = async (e: any) => {
 		e.preventDefault();
+
+		setIsLoading(true);
 
 		const res = await axios({
 			method: "POST",
@@ -24,14 +31,19 @@ const AddDataManga = () => {
 		});
 
 		if (res.status === 200) {
-			router.push("/admin");
+			router.push("/admin/manga");
+			setIsLoading(false);
 		}
 	};
 
 	const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setTitle(e.target.value);
 	};
-	return (
+	return isLoading ? (
+		<div className="flex justify-center items-center h-screen gap-10 bg-slate-600">
+			<Loading />
+		</div>
+	) : (
 		<>
 			<div className="w-screen h-screen bg-slate-600">
 				<div className="flex flex-col items-center">
