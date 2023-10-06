@@ -1,3 +1,4 @@
+import Video from "@/components/Elements/Video";
 import Navbar from "@/components/Layouts/Navbar";
 import Image from "next/image";
 
@@ -5,7 +6,10 @@ const Animelist = () => {
 	return (
 		<>
 			<Navbar></Navbar>
-			<div className="flex justify-center items-center ">
+			<div className="flex justify-center items-center">
+				<Video source="https://drive.google.com/file/d/1Xx5JZH_AMpHpgL9RDF7XwUB6aC_X9hGZ/preview"></Video>
+			</div>
+			{/* <div className="flex justify-center items-center ">
 				<div className="card">
 					<div className="w-[15rem] flex flex-col text-center  border-[2px] border-slate-950 overflow-hidden rounded-md ">
 						<div className="card-header flex justify-center border-b-2 ">
@@ -25,7 +29,9 @@ const Animelist = () => {
 						<div className="card-footer"></div>
 					</div>
 				</div>
-			</div>
+			</div> */}
 		</>
 	);
 };
+
+export default Animelist;
