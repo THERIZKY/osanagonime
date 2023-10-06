@@ -20,8 +20,10 @@ const AdminManga = () => {
 
 	useEffect(() => {
 		const getDataManga = async () => {
-			const data = await getAllData();
-			setData(data);
+			const res = await fetch("/api/manga/read");
+
+			const data = await res.json();
+			setData(data.data);
 		};
 
 		getDataManga();

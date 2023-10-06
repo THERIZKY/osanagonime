@@ -18,7 +18,6 @@ export async function getDataManga(title: string) {
 				},
 			},
 		});
-		// console.log(response);
 		return response.data.data;
 	} catch (err) {
 		console.log("error : ", err);
