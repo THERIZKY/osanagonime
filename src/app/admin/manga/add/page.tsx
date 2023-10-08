@@ -21,7 +21,7 @@ const AddDataManga = () => {
 
 		const res = await axios({
 			method: "POST",
-			url: "http://localhost:3000/api/manga",
+			url: "/api/manga/add",
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -76,7 +76,7 @@ const AddDataManga = () => {
 							href={"/admin/manga"}
 							className="bg-blue-600 px-5 py-2 rounded"
 						>
-							Tambah Manga
+							Back To Manga List
 						</Link>
 					</div>
 				</div>
