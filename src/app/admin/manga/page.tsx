@@ -37,9 +37,13 @@ const AdminManga = () => {
 			});
 
 			if (res.status === 200) {
+				Swal.fire(
+					"Deleted!",
+					"Manga Has Successfull Deleted.",
+					"success",
+				);
 				console.log("Manga deleted successfully");
 				router.push("/temp");
-				return true;
 			}
 		} catch (error) {
 			console.error("Error deleting manga", error);
@@ -58,15 +62,9 @@ const AdminManga = () => {
 			confirmButtonText: "Yes, delete it!",
 		}).then((result) => {
 			if (result.isConfirmed) {
-				const successDelete: any = await deleteHandler(id);
-
-				if (successDelete) {
-					Swal.fire(
-						"Deleted!",
-						"Manga Has Successfull Deleted.",
-						"success",
-					);
-				}
+				deleteHandler(id);
+			} else {
+				setIsLoading(false);
 			}
 		});
 	};
@@ -133,7 +131,7 @@ const AdminManga = () => {
 							<td className="w-[250px]">
 								<div className="flex justify-center gap-5">
 									<Link
-										href={"/admin/manga/edit?id=" + item.id}
+										href={"/admin/manga/edit/" + item.id}
 										className="bg-yellow-500 text-white px-6 py-2 rounded-md"
 									>
 										Edit

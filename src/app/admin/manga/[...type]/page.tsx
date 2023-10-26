@@ -11,14 +11,13 @@ interface HandlerDataMangaProps {
 
 const HandlerDataManga = ({ params }: HandlerDataMangaProps) => {
 	const { type } = params;
-	// console.log(params.type);
+	// console.log(type);
 
-	if (type === "add") {
+	if (type[0] === "add") {
 		return <AddDataMangaPage />;
 	}
-
-	if (type === "edit") {
-		return <EditDataMangaPage />;
+	if (type[0] === "edit") {
+		return <EditDataMangaPage id={type[1]} />;
 	}
 };
 
