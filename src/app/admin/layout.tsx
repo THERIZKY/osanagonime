@@ -2,6 +2,7 @@
 import { Fragment, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Sibebar from "@/components/Layouts/Sidebar";
 
 export default function AdminLayout({
 	children, // will be a page or nested layout
@@ -13,7 +14,10 @@ export default function AdminLayout({
 	}, []);
 	return (
 		<Fragment>
-			<div className="w-full min-h-screen bg-slate-600">{children}</div>
+			<Sibebar />
+			<div className="w-full min-h-screen pl-[21rem] bg-slate-600">
+				{children}
+			</div>
 		</Fragment>
 	);
 }
