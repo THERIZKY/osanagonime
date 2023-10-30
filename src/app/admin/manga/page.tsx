@@ -129,18 +129,17 @@ const AdminManga = () => {
 							<td className="p-8">{item.deskripsi}</td>
 
 							<td className="w-[250px]">
-								<div className="flex justify-center gap-5">
+								<div className="flex  justify-center gap-5">
 									<Link
 										href={"/admin/manga/edit/" + item.id}
-										className="bg-yellow-500 text-white px-6 py-2 rounded-md"
+										className="bg-yellow-500 text-white px-6 py-2 rounded-md hover:bg-orange-200 hover:text-black active:bg-white"
 									>
 										Edit
 									</Link>
 									<button
-										className=" bg-red-600 text-white px-6 py-2 rounded-md active:bg-white hover:bg-orange-600 hover:text-white"
+										className=" bg-red-600 text-white px-6 py-2 rounded-md active:bg-white hover:bg-orange-600 hover:text-white active:text-black"
 										onClick={() => {
 											setIsLoading(true);
-											// deleteHandler(item.id);
 											confirmHandler(item.id);
 										}}
 									>
@@ -155,7 +154,7 @@ const AdminManga = () => {
 
 			<Link
 				href="/admin/manga/add"
-				className="animate__animated animate__bounceIn animate__slow bg-blue-600 text-white mt-5 px-5 py-2 rounded-md"
+				className="animate__animated animate__bounceIn animate__slow bg-blue-600 text-white mt-5 px-5 py-2 rounded-md hover:bg-blue-900 active:bg-white active:text-black"
 			>
 				Tambah Manga
 			</Link>

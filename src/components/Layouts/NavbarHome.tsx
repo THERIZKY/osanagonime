@@ -4,7 +4,11 @@ const NavHomePage = () => {
 	return (
 		<>
 			<div className="navbar  w-full pt-20 flex justify-center">
-				<NavButton gapSize="20" size="35px" hoverColor="orange-700" />
+				<NavButton
+					gapSize="gap-20"
+					size="[35px]"
+					hoverColor="text-orange-700"
+				/>
 			</div>
 		</>
 	);

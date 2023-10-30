@@ -25,6 +25,7 @@ const EditDataMangaPage = ({ id }: { id: string }) => {
 			setIsLoading(false);
 		};
 		getSelectedManga();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return isLoading ? (
 		<div className="flex justify-center items-center h-screen">

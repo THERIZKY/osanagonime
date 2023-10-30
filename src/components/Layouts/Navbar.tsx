@@ -16,7 +16,11 @@ const Navbar = () => {
 							className="object-cover"
 						/>
 					</div>
-					<NavButton gapSize="10" size="" hoverColor="slate-900" />
+					<NavButton
+						gapSize="gap-10"
+						size=""
+						hoverColor="text-slate-900"
+					/>
 				</div>
 			</div>
 		</>
