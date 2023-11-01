@@ -27,3 +27,44 @@ export async function getAllData(mangaId = "") {
 
 	return data;
 }
+
+export async function getAllChapter(chapterId = "", mangaId = "") {
+	if (chapterId !== "") {
+		const q = query(
+			collection(db, "chapter"),
+			where("__name__", "==", chapterId),
+		);
+		const querySnapshot = await getDocs(q);
+		const data = querySnapshot.docs.map((doc) => ({
+			id: doc.id,
+			...doc.data(),
+		}));
+
+		return data;
+	}
+
+	if (mangaId !== "") {
+		const q = query(
+			collection(db, "chapter"),
+			where("idManga", "==", mangaId),
+		);
+		const querySnapshot = await getDocs(q);
+
+		const data = querySnapshot.docs.map((doc) => ({
+			id: doc.id,
+			...doc.data(),
+		}));
+
+		return data;
+	}
+
+	const q = await getDocs(collection(db, "chapter"));
+	const data = q.docs.map((doc) => ({
+		id: doc.id,
+		...doc.data(),
+	}));
+
+	console.log(data);
+
+	return data;
+}

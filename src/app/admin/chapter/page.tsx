@@ -6,9 +6,11 @@ const AdminChapter = () => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		setIsLoading(true);
-		setTimeout(() => {
+		const getChapter = () => {
 			setIsLoading(false);
+		};
+		setTimeout(() => {
+			getChapter();
 		}, 1000);
 	}, []);
 
