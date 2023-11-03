@@ -11,7 +11,6 @@ interface HandlerDataMangaProps {
 
 const HandlerDataManga = ({ params }: HandlerDataMangaProps) => {
 	const { type } = params;
-	// console.log(type);
 
 	if (type[0] === "add") {
 		return <AddDataMangaPage />;

@@ -28,6 +28,22 @@ export async function getAllData(mangaId = "") {
 	return data;
 }
 
+export async function getMangaById(mangaId = "") {
+	const q = query(
+		collection(db, "manga"),
+		where("idManga", "==", Number(mangaId)),
+	);
+	const querySnapshot = await getDocs(q);
+	const data = querySnapshot.docs.map((doc) => ({
+		id: doc.id,
+		...doc.data(),
+	}));
+
+	console.log(querySnapshot.docs);
+
+	return data;
+}
+
 export async function getAllChapter(chapterId = "", mangaId = "") {
 	if (chapterId !== "") {
 		const q = query(
@@ -64,7 +80,7 @@ export async function getAllChapter(chapterId = "", mangaId = "") {
 		...doc.data(),
 	}));
 
-	console.log(data);
+	// console.log(data);
 
 	return data;
 }

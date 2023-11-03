@@ -42,7 +42,6 @@ const AdminManga = () => {
 					"Manga Has Successfull Deleted.",
 					"success",
 				);
-				console.log("Manga deleted successfully");
 				router.push("/temp");
 			}
 		} catch (error) {
