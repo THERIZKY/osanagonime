@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "@/components/Elements/Loading";
+import { getMangaById } from "@/utils/firebase/read/services";
 type ChapterType = {
 	id: string;
 	idManga: string;
@@ -13,6 +14,7 @@ type ChapterType = {
 const AdminChapter = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [dataChapter, setDataChapter] = useState<ChapterType[]>([]);
+	const [mangaCache, setMangaCache] = useState<ChapterType[]>([]);
 
 	// UseEffect untuk mengumpulkan semua data chapter
 	useEffect(() => {
@@ -20,6 +22,7 @@ const AdminChapter = () => {
 			try {
 				const res = await axios.get("/api/chapter/read");
 				// const res = await axios.get("/api/testing");
+				console.log(res.data.data);
 				setDataChapter(res.data.data);
 				setIsLoading(false);
 			} catch (err) {
@@ -31,27 +34,41 @@ const AdminChapter = () => {
 		getChapter();
 	}, []);
 
-	// Fungsi untuk mengambil data manga berdasarkan id
-	// const getMangaById = async (idManga: string) => {
-	// 	try {
-	// 		const res = await axios.get(`/api/manga/read`, {
-	// 			params: {
-	// 				idManga: idManga,
-	// 			},
-	// 		});
-	// 		return res.data.data;
-	// 	} catch (err) {
-	// 		console.error(err);
-	// 	}
-	// };
-
 	// useEffect(() => {
+	// 	// Fungsi untuk mengambil data manga berdasarkan id
+	// 	const getMangaById = async (idManga: any) => {
+	// 		if (mangaCache[idManga]) {
+	// 			// Mengambil data dari cache
+	// 			return mangaCache[idManga];
+	// 		} else {
+	// 			// Melakukan panggilan ke API
+	// 			try {
+	// 				const res = await axios.get(`/api/manga/read`, {
+	// 					params: {
+	// 						idManga: idManga,
+	// 					},
+	// 				});
+	// 				const mangaData = res.data.data[0];
+	// 				// Menyimpan data ke cache
+	// 				setMangaCache((prevCache) => ({
+	// 					...prevCache,
+	// 					[idManga]: mangaData,
+	// 				}));
+	// 				console.log(mangaData);
+	// 				return mangaData;
+	// 			} catch (err) {
+	// 				console.error(err);
+	// 			}
+	// 		}
+	// 	};
+
+	// 	// Buat Nyari Manga Title
 	// 	const fetchMangaTitles = async () => {
 	// 		const chapterData = [...dataChapter];
 
 	// 		const promises = chapterData.map(async (chapter) => {
 	// 			const mangaData = await getMangaById(chapter.idManga);
-	// 			chapter.mangaTitle = mangaData[0].mangaTitle;
+	// 			chapter.mangaTitle = mangaData[0]?.mangaTitle;
 	// 		});
 
 	// 		await Promise.all(promises);
@@ -60,7 +77,7 @@ const AdminChapter = () => {
 	// 	};
 
 	// 	fetchMangaTitles();
-	// }, [dataChapter]);
+	// }, [dataChapter, mangaCache]);
 
 	if (isLoading) {
 		return (
@@ -70,6 +87,7 @@ const AdminChapter = () => {
 		);
 	}
 
+	console.log(dataChapter);
 	return (
 		<section className="dark dark:bg-gray-900 p-3 sm:p-5">
 			<div className="mx-auto max-w-screen-xl px-4 lg:px-12">
