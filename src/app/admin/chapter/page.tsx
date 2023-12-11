@@ -20,11 +20,26 @@ const AdminChapter = () => {
 	useEffect(() => {
 		const getChapter = async () => {
 			try {
-				const res = await axios.get("/api/chapter/read");
-				// const res = await axios.get("/api/testing");
-				console.log(res.data.data);
-				setDataChapter(res.data.data);
-				setIsLoading(false);
+				await fetch(`/api/chapter?includeManga=include`, {
+					cache: "force-cache",
+					next: {
+						revalidate: 10,
+					},
+				})
+					.then(async (res) => {
+						if (!res.ok) {
+							throw new Error("Failed to fetch chapter data");
+						}
+						return await res.json();
+					})
+					.then((data) => {
+						console.log(data.data);
+						setDataChapter(data.data);
+						setIsLoading(false);
+					})
+					.catch((error) => {
+						console.error("Error fetching chapter data", error);
+					});
 			} catch (err) {
 				console.error(err);
 				setIsLoading(false);
@@ -34,51 +49,6 @@ const AdminChapter = () => {
 		getChapter();
 	}, []);
 
-	// useEffect(() => {
-	// 	// Fungsi untuk mengambil data manga berdasarkan id
-	// 	const getMangaById = async (idManga: any) => {
-	// 		if (mangaCache[idManga]) {
-	// 			// Mengambil data dari cache
-	// 			return mangaCache[idManga];
-	// 		} else {
-	// 			// Melakukan panggilan ke API
-	// 			try {
-	// 				const res = await axios.get(`/api/manga/read`, {
-	// 					params: {
-	// 						idManga: idManga,
-	// 					},
-	// 				});
-	// 				const mangaData = res.data.data[0];
-	// 				// Menyimpan data ke cache
-	// 				setMangaCache((prevCache) => ({
-	// 					...prevCache,
-	// 					[idManga]: mangaData,
-	// 				}));
-	// 				console.log(mangaData);
-	// 				return mangaData;
-	// 			} catch (err) {
-	// 				console.error(err);
-	// 			}
-	// 		}
-	// 	};
-
-	// 	// Buat Nyari Manga Title
-	// 	const fetchMangaTitles = async () => {
-	// 		const chapterData = [...dataChapter];
-
-	// 		const promises = chapterData.map(async (chapter) => {
-	// 			const mangaData = await getMangaById(chapter.idManga);
-	// 			chapter.mangaTitle = mangaData[0]?.mangaTitle;
-	// 		});
-
-	// 		await Promise.all(promises);
-
-	// 		setDataChapter(chapterData);
-	// 	};
-
-	// 	fetchMangaTitles();
-	// }, [dataChapter, mangaCache]);
-
 	if (isLoading) {
 		return (
 			<div className="flex justify-center items-center h-screen gap-10 bg-slate-600">
@@ -87,12 +57,12 @@ const AdminChapter = () => {
 		);
 	}
 
-	console.log(dataChapter);
 	return (
 		<section className="dark dark:bg-gray-900 p-3 sm:p-5">
 			<div className="mx-auto max-w-screen-xl px-4 lg:px-12">
 				{/* Start coding here */}
 				<div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+					{/* Header Table */}
 					<div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
 						<div className="w-full md:w-1/2">
 							{/* Buat Search */}
@@ -130,8 +100,8 @@ const AdminChapter = () => {
 							</form>
 							{/* akhir search */}
 						</div>
+						{/* Button add data */}
 						<div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-							{/* Button add data */}
 							<button
 								type="button"
 								className="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
@@ -153,95 +123,84 @@ const AdminChapter = () => {
 							</button>
 						</div>
 					</div>
+
+					{/* Bagian Bawah Table */}
 					<div className="overflow-x-auto">
 						<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 							<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 								<tr>
-									<th scope="col" className="px-4 py-3">
-										Judul Manga
-									</th>
 									<th scope="col" className="px-4 py-3">
 										Judul Chapter
 									</th>
 									<th scope="col" className="px-4 py-3">
 										Chapter
 									</th>
-									{/* <th scope="col" className="px-4 py-3">
-										Description
+									<th scope="col" className="px-4 py-3">
+										Judul Manga
 									</th>
 									<th scope="col" className="px-4 py-3">
-										Price
-									</th> */}
-									<th scope="col" className="px-4 py-3">
-										<span className="sr-only">Actions</span>
+										Actions
 									</th>
 								</tr>
 							</thead>
+
+							{/* Body Table */}
 							<tbody>
-								<tr className="border-b dark:border-gray-700">
+								{dataChapter.map((data, index) => {
+									return (
+										<tr
+											key={index}
+											className="border-b dark:border-gray-700"
+										>
+											<th
+												scope="row"
+												className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+											>
+												{data.judul}
+											</th>
+											<td className="px-4 py-3">
+												{data.chapter}
+											</td>
+											<td className="px-4 py-3">
+												{data.mangaTitle}
+											</td>
+
+											<td className="px-4 py-3 flex items-center justify-start">
+												<div className=" flex gap-6">
+													<button className="flex justify-center items-center bg-warning w-[4rem] h-9 text-center rounded-lg  text-black transition duration-300 ease-in-out transform hover:scale-110 active:scale-100">
+														Edit
+													</button>
+
+													<button className="flex justify-center items-center bg-danger w-[4rem] h-9 text-center rounded-lg  text-black transition duration-300 ease-in-out transform hover:scale-110 active:scale-100">
+														Delete
+													</button>
+												</div>
+											</td>
+										</tr>
+									);
+								})}
+								{/* <tr className="border-b dark:border-gray-700">
 									<th
 										scope="row"
 										className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 									>
-										Apple iMac 27inch
+										Introduction Chapter 1
 									</th>
-									<td className="px-4 py-3">PC</td>
-									<td className="px-4 py-3">Apple</td>
-									{/* <td className="px-4 py-3">300</td>
-									<td className="px-4 py-3">$2999</td> */}
-									<td className="px-4 py-3 flex items-center justify-end">
-										<button
-											id="apple-imac-27-dropdown-button"
-											data-dropdown-toggle="apple-imac-27-dropdown"
-											className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
-											type="button"
-										>
-											<svg
-												className="w-5 h-5"
-												aria-hidden="true"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-												xmlns="http://www.w3.org/2000/svg"
-											>
-												<path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-											</svg>
-										</button>
-										<div
-											id="apple-imac-27-dropdown"
-											className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
-										>
-											<ul
-												className="py-1 text-sm text-gray-700 dark:text-gray-200"
-												aria-labelledby="apple-imac-27-dropdown-button"
-											>
-												<li>
-													<a
-														href="#"
-														className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-													>
-														Show
-													</a>
-												</li>
-												<li>
-													<a
-														href="#"
-														className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-													>
-														Edit
-													</a>
-												</li>
-											</ul>
-											<div className="py-1">
-												<a
-													href="#"
-													className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-												>
-													Delete
-												</a>
-											</div>
+									<td className="px-4 py-3">1</td>
+									<td className="px-4 py-3">One Piece</td>
+
+									<td className="px-4 py-3 flex items-center justify-start">
+										<div className=" flex gap-6">
+											<button className="flex justify-center items-center bg-warning w-[4rem] h-9 text-center rounded-lg  text-black transition duration-300 ease-in-out transform hover:scale-110 active:scale-100">
+												Edit
+											</button>
+
+											<button className="flex justify-center items-center bg-danger w-[4rem] h-9 text-center rounded-lg  text-black transition duration-300 ease-in-out transform hover:scale-110 active:scale-100">
+												Delete
+											</button>
 										</div>
 									</td>
-								</tr>
+								</tr> */}
 							</tbody>
 						</table>
 					</div>

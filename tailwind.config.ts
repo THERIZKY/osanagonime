@@ -33,6 +33,9 @@ const config: Config = {
 					"900": "#14532d",
 					"950": "#052e16",
 				},
+				warning: "#ffc107",
+				success: "#198754",
+				danger: "#dc3545",
 			},
 		},
 		fontFamily: {

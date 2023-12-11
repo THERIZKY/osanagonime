@@ -69,7 +69,6 @@ export async function getMangaDetails(title: string) {
 	try {
 		const selectedManga = await getDataManga(title);
 
-		// console.log(selectedManga);
 		const mangaTitle = selectedManga[0].attributes.title.en;
 		const mangaCover = await getMangaCover(title);
 		const mangaDescription = await getMangaDescription(title);

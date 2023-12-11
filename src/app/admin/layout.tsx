@@ -14,7 +14,7 @@ export default function AdminLayout({
 	}, []);
 	return (
 		<Fragment>
-			<Sidebar />
+			{/* <Sidebar /> */}
 			<div className="w-full min-h-screen pl-[21rem] bg-slate-600">
 				{children}
 			</div>

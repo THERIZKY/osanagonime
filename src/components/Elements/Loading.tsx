@@ -6,6 +6,7 @@ const Loading = () => {
 				src={"/loading.svg"}
 				width={300}
 				height={300}
+				priority
 				alt="loading"
 			/>
 		</>

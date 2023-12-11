@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter, redirect, permanentRedirect } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import Loading from "@/components/Elements/Loading";
@@ -27,29 +27,6 @@ const AdminManga = () => {
 
 	// Handle Deletion of Manga
 
-	const deleteHandler = async (id: string) => {
-		// const conf = confirm("Apakah Anda Yakin?");
-		try {
-			const res = await axios.delete("/api/manga/drop", {
-				data: JSON.stringify({
-					id,
-				}),
-			});
-
-			if (res.status === 200) {
-				Swal.fire(
-					"Deleted!",
-					"Manga Has Successfull Deleted.",
-					"success",
-				);
-				router.push("/temp");
-			}
-		} catch (error) {
-			console.error("Error deleting manga", error);
-			setIsLoading(false);
-		}
-	};
-
 	const confirmHandler = async (id: string) => {
 		Swal.fire({
 			title: "Are you sure?",
@@ -61,7 +38,7 @@ const AdminManga = () => {
 			confirmButtonText: "Yes, delete it!",
 		}).then((result) => {
 			if (result.isConfirmed) {
-				deleteHandler(id);
+				router.push(`/admin/manga/delete/${id}`);
 			} else {
 				setIsLoading(false);
 			}
@@ -72,10 +49,27 @@ const AdminManga = () => {
 	useEffect(() => {
 		const getDataManga = async () => {
 			try {
-				const res = await fetch("/api/manga/read");
-				const data = await res.json();
-				setData(data.data);
-				setIsLoading(false);
+				await fetch("/api/manga", {
+					method: "GET",
+					cache: "force-cache",
+					next: {
+						revalidate: 10,
+					},
+				})
+					.then(async (res) => {
+						if (!res.ok) {
+							throw new Error("Failed to fetch manga data");
+						}
+						return res.json();
+					})
+					.then((data) => {
+						// console.log(data.data);
+						setData(data.data);
+						setIsLoading(false);
+					})
+					.catch((error) => {
+						console.error("Error fetching manga data", error);
+					});
 			} catch (error) {
 				console.error("Error fetching manga data", error);
 			}
@@ -122,6 +116,7 @@ const AdminManga = () => {
 									height={150}
 									src={item.cover}
 									alt="cover-manga"
+									className="w-auto h-auto"
 								/>
 							</td>
 							<td className="w-60">{item.mangaTitle}</td>
@@ -131,7 +126,8 @@ const AdminManga = () => {
 								<div className="flex  justify-center gap-5">
 									<Link
 										href={"/admin/manga/edit/" + item.id}
-										className="bg-yellow-500 text-white px-6 py-2 rounded-md hover:bg-orange-200 hover:text-black active:bg-white"
+										className="bg-yellow-500 text-white px-6 py-2 rounded-md
+										hover:bg-orange-200 hover:text-black active:bg-white"
 									>
 										Edit
 									</Link>

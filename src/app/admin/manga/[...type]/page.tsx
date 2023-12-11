@@ -1,6 +1,8 @@
 // Importing Component
 import AddDataMangaPage from "@/components/Pages/AddMangaPage";
 import EditDataMangaPage from "@/components/Pages/EditMangaPage";
+import DeleteDataMangaPage from "@/components/Pages/DeleteMangaPage";
+import { redirect } from "next/navigation";
 
 // Interface
 interface HandlerDataMangaProps {
@@ -12,11 +14,15 @@ interface HandlerDataMangaProps {
 const HandlerDataManga = ({ params }: HandlerDataMangaProps) => {
 	const { type } = params;
 
-	if (type[0] === "add") {
-		return <AddDataMangaPage />;
-	}
-	if (type[0] === "edit") {
-		return <EditDataMangaPage id={type[1]} />;
+	switch (type[0]) {
+		case "add":
+			return <AddDataMangaPage />;
+		case "edit":
+			return <EditDataMangaPage id={type[1]} />;
+		case "delete":
+			return <DeleteDataMangaPage id={type[1]} />;
+		default:
+			return redirect("/admin/manga");
 	}
 };
 

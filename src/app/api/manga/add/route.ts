@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
 	if (data) {
 		const idManga = await getNextCounter();
 
-		const idRef = await createManga(data, idManga);
+		await createManga(data, idManga);
 
 		return NextResponse.json({
 			status: 200,
