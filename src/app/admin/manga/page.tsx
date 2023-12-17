@@ -93,59 +93,64 @@ const AdminManga = () => {
 			<h1 className="text-center text-3xl font-bold p-5 text-white">
 				Halaman Admin
 			</h1>
-			<table className="animate__animated animate__fadeInDown border-y-2 w-3/4 text-center text-white">
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>Cover</th>
-						<th>Judul</th>
-						<th>Deskripsi</th>
-						<th>Aksi</th>
-					</tr>
-				</thead>
-				<tbody>
-					{data.map((item: MangaData, index: number) => (
-						<tr
-							key={item.id}
-							className="animate__animated animate__fadeInDown border-y-2"
-						>
-							<td>{index + 1}</td>
-							<td className="flex items-center justify-center p-5 w-[250px]">
-								<Image
-									width={150}
-									height={150}
-									src={item.cover}
-									alt="cover-manga"
-									className="w-auto h-auto"
-								/>
-							</td>
-							<td className="w-60">{item.mangaTitle}</td>
-							<td className="p-8">{item.deskripsi}</td>
 
-							<td className="w-[250px]">
-								<div className="flex  justify-center gap-5">
-									<Link
-										href={"/admin/manga/edit/" + item.id}
-										className="bg-yellow-500 text-white px-6 py-2 rounded-md
-										hover:bg-orange-200 hover:text-black active:bg-white"
-									>
-										Edit
-									</Link>
-									<button
-										className=" bg-red-600 text-white px-6 py-2 rounded-md active:bg-white hover:bg-orange-600 hover:text-white active:text-black"
-										onClick={() => {
-											setIsLoading(true);
-											confirmHandler(item.id);
-										}}
-									>
-										Delete
-									</button>
-								</div>
-							</td>
+			<div className="max-w-screen-xl w-[80%]  text-white overflow-x-auto">
+				<table className="animate__animated animate__fadeInDown w-full text-sm text-left text-gray-500 dark:text-gray-400">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>Cover</th>
+							<th>Judul</th>
+							<th>Deskripsi</th>
+							<th>Aksi</th>
 						</tr>
-					))}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{data.map((item: MangaData, index: number) => (
+							<tr
+								key={item.id}
+								className="animate__animated animate__fadeInDown border-y-2"
+							>
+								<td>{index + 1}</td>
+								<td className="flex items-center justify-center p-5 w-[250px]">
+									<Image
+										width={150}
+										height={150}
+										src={item.cover}
+										alt="cover-manga"
+										className="w-auto h-auto"
+									/>
+								</td>
+								<td className="w-60">{item.mangaTitle}</td>
+								<td className="p-8">{item.deskripsi}</td>
+
+								<td className="w-[250px]">
+									<div className="flex  justify-center gap-5">
+										<Link
+											href={
+												"/admin/manga/edit/" + item.id
+											}
+											className="bg-yellow-500 text-white px-6 py-2 rounded-md
+										hover:bg-orange-200 hover:text-black active:bg-white"
+										>
+											Edit
+										</Link>
+										<button
+											className=" bg-red-600 text-white px-6 py-2 rounded-md active:bg-white hover:bg-orange-600 hover:text-white active:text-black"
+											onClick={() => {
+												setIsLoading(true);
+												confirmHandler(item.id);
+											}}
+										>
+											Delete
+										</button>
+									</div>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
 
 			<Link
 				href="/admin/manga/add"

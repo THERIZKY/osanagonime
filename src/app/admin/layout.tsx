@@ -5,19 +5,19 @@ import "aos/dist/aos.css";
 import Sidebar from "@/components/Layouts/Sidebar";
 
 export default function AdminLayout({
-  children, // will be a page or nested layout
+	children, // will be a page or nested layout
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  useEffect(() => {
-    AOS.init();
-  }, []);
-  return (
-    <Fragment>
-      <Sidebar />
-      <div className="w-full min-h-screen pl-[21rem] bg-slate-600">
-        {children}
-      </div>
-    </Fragment>
-  );
+	useEffect(() => {
+		AOS.init();
+	}, []);
+	return (
+		<Fragment>
+			<Sidebar />
+			<div className="w-full min-h-screen sm:pl-[21rem] bg-slate-600">
+				{children}
+			</div>
+		</Fragment>
+	);
 }
