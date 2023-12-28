@@ -12,6 +12,7 @@ export default function AdminLayout({
 	useEffect(() => {
 		AOS.init();
 	}, []);
+
 	return (
 		<Fragment>
 			<Sidebar />

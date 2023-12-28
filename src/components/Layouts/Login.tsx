@@ -1,14 +1,36 @@
-import Image from "next/image";
+"use client";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { FormEvent } from "react";
 
 const Login = () => {
+	const { push } = useRouter();
+	const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		try {
+			const res = await signIn("credentials", {
+				redirect: false,
+				email: e.currentTarget.email.value,
+				password: e.currentTarget.password.value,
+				callbackUrl: "/admin",
+			});
+
+			if (!res?.error) {
+				push("/admin");
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
 	return (
 		<div className=" w-full bg-gray-800 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
 			<div className="p-6 space-y-4 md:space-y-6 sm:p-8">
 				<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
 					Sign in to your account
 				</h1>
-				<form className="space-y-4 md:space-y-6" action="#">
+				<form className="space-y-4 md:space-y-6" onSubmit={handleLogin}>
 					<div>
 						<label
 							htmlFor="email"

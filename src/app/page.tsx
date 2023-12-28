@@ -1,15 +1,14 @@
 import NavbarHome from "@/components/Layouts/NavbarHome";
 import Image from "next/image";
-// import "/search.svg";
 
 export default function Home() {
 	return (
 		<>
 			<div className="bg-gradient-home w-full min-h-screen overflow-hidden">
-				<div className="pl-20 flex flex-col ">
+				<div className="md:pl-20 flex flex-col ">
 					<NavbarHome />
-					<div className="flex w-full h-[45rem]">
-						<div className=" w-1/2 flex  justify-center items-center">
+					<div className="flex flex-col justify-center items-center md:flex-row  w-full h-[45rem]">
+						<div className="w-full md:w-1/2 flex  justify-center items-center">
 							<Image
 								src={"/img/animek.png"}
 								width={650}
@@ -17,13 +16,15 @@ export default function Home() {
 								alt="home-image"
 							/>
 						</div>
-						<div className="w-1/2 flex flex-col justify-center gap-10">
-							<Image
-								src={"/img/osanagoTrans.png"}
-								width={300}
-								height={300}
-								alt="logo"
-							/>
+						<div className="w-full md:w-1/2flex flex-col justify-center gap-10">
+							<div className="flex justify-center md:justify-start">
+								<Image
+									src={"/img/osanagoTrans.png"}
+									width={300}
+									height={300}
+									alt="logo"
+								/>
+							</div>
 							<form action="" className="flex gap-5">
 								<input
 									type="text"

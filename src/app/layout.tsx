@@ -1,15 +1,13 @@
+"use client";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "animate.css";
 import "flowbite";
+import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-	title: "OsanagoNimek",
-	description: "Nonton Lah Anime Dan jadilah wibu",
-};
 export default function RootLayout({
 	children,
 }: {
@@ -22,8 +20,16 @@ export default function RootLayout({
 					name="viewport"
 					content="width=device-width, initial-scale=1.0"
 				/>
+				<title>OsanagoNimek</title>
+				<link rel="icon" href="/favicon.ico" />
+				<meta
+					name="description"
+					content="Nonton Lah Anime Dan jadilah wibu"
+				/>
 			</head>
-			<body className={inter.className}>{children}</body>
+			<body className={inter.className}>
+				<SessionProvider>{children}</SessionProvider>
+			</body>
 		</html>
 	);
 }
