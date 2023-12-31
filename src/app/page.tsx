@@ -1,12 +1,16 @@
+"use client";
 import NavbarHome from "@/components/Layouts/NavbarHome";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+	const { status } = useSession();
+	// console.log(status);
 	return (
 		<>
 			<div className="bg-gradient-home w-full min-h-screen overflow-hidden">
 				<div className="md:pl-20 flex flex-col ">
-					<NavbarHome />
+					<NavbarHome status={status} />
 					<div className="flex flex-col justify-center items-center md:flex-row  w-full h-[45rem]">
 						<div className="w-full md:w-1/2 flex  justify-center items-center">
 							<Image

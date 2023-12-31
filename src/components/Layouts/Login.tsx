@@ -1,31 +1,53 @@
 "use client";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { FormEvent } from "react";
+import { notFound, useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
+import Swal from "sweetalert2";
 
 const Login = () => {
 	const { push } = useRouter();
+	const [isLoading, setIsLoading] = useState(false);
+
 	const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setIsLoading(true);
 
 		try {
 			const res = await signIn("credentials", {
 				redirect: false,
 				email: e.currentTarget.email.value,
 				password: e.currentTarget.password.value,
-				callbackUrl: "/admin",
+				callbackUrl: "/",
 			});
 
 			if (!res?.error) {
-				push("/admin");
+				Swal.fire({
+					title: "Successful!",
+					text: "Login berhasil!",
+					icon: "success",
+				}).then(() => {
+					push("/admin");
+				});
+			} else {
+				if (res.error === "CredentialsSignin") {
+					Swal.fire({
+						icon: "error",
+						title: "Email Atau Password Salah",
+						text: "Coba Cek email atau password anda kembali!",
+					}).then(() => {
+						setIsLoading(false);
+						push("/login");
+					});
+				}
 			}
 		} catch (err) {
 			console.log(err);
+			notFound();
 		}
 	};
 	return (
-		<div className=" w-full bg-gray-800 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+		<div className="dark w-full bg-gray-800 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
 			<div className="p-6 space-y-4 md:space-y-6 sm:p-8">
 				<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
 					Sign in to your account
@@ -66,9 +88,10 @@ const Login = () => {
 
 					<button
 						type="submit"
+						disabled={isLoading}
 						className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
 					>
-						Login
+						{isLoading ? "Loading..." : "Sign in"}
 					</button>
 					<p className="text-sm font-light text-gray-500 dark:text-gray-400">
 						Gapunya Akun?{" "}

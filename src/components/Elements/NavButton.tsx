@@ -1,13 +1,14 @@
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 
 type NavButtonProps = {
 	size: string;
 	hoverColor: string;
 	gapSize: string;
+	status: any;
 };
 
-const Button = ({ size, hoverColor, gapSize }: NavButtonProps) => {
+const Button = ({ size, hoverColor, gapSize, status }: NavButtonProps) => {
 	return (
 		<div className={`button flex items-center ${gapSize} text-white`}>
 			<Link
@@ -28,6 +29,11 @@ const Button = ({ size, hoverColor, gapSize }: NavButtonProps) => {
 			>
 				All Anime
 			</Link>
+			{status === "authenticated" ? (
+				<button onClick={() => signOut()}>Log Out</button>
+			) : (
+				<button onClick={() => signIn()}>Log In</button>
+			)}
 		</div>
 	);
 };

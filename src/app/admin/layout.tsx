@@ -3,6 +3,16 @@ import { Fragment, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Sidebar from "@/components/Layouts/Sidebar";
+import { redirect } from "next/navigation";
+import { useSession } from "next-auth/react";
+
+interface sessionInterface {
+	user: {
+		name: string;
+		email: string;
+		role: string;
+	};
+}
 
 export default function AdminLayout({
 	children, // will be a page or nested layout
@@ -12,6 +22,20 @@ export default function AdminLayout({
 	useEffect(() => {
 		AOS.init();
 	}, []);
+	const {
+		data: session,
+		status,
+	}: { data: sessionInterface | any; status: string } = useSession();
+
+	useEffect(() => {
+		if (status === "unauthenticated") {
+			redirect("/login");
+		} else {
+			if (session !== undefined && session?.user.role !== "admin") {
+				redirect("/");
+			}
+		}
+	}, [session, session?.user.role, status]);
 
 	return (
 		<Fragment>
