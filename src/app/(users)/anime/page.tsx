@@ -1,3 +1,5 @@
+"use client";
+
 import Video from "@/components/Elements/Video";
 import Navbar from "@/components/Layouts/Navbar";
 import Image from "next/image";

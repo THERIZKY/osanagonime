@@ -1,7 +1,5 @@
 "use client";
-import { signIn, signOut, useSession } from "next-auth/react";
 import { Fragment, useEffect } from "react";
-import { redirect } from "next/navigation";
 
 /*******************Admin Component********************/
 export default function Admin() {

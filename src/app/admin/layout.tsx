@@ -19,14 +19,17 @@ export default function AdminLayout({
 }: {
 	children: React.ReactNode;
 }) {
-	useEffect(() => {
-		AOS.init();
-	}, []);
 	const {
 		data: session,
 		status,
 	}: { data: sessionInterface | any; status: string } = useSession();
 
+	// AOS init
+	useEffect(() => {
+		AOS.init();
+	}, []);
+
+	// Pengecekan session
 	useEffect(() => {
 		if (status === "unauthenticated") {
 			redirect("/login");

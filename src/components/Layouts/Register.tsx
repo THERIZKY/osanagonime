@@ -12,48 +12,63 @@ const Register = () => {
 		e.preventDefault();
 		setIsLoading(true);
 
-		if (
-			e.currentTarget.password.value !==
-			e.currentTarget.confirm_password.value
-		) {
+		//Cek Password nya kependekan apa gak
+		if (e.currentTarget.password.value.length < 8) {
 			Swal.fire({
-				icon: "error",
-				title: "Password Tidak sama...",
-				text: "Coba cek password dan konfirmasi password!",
+				icon: "warning",
+				title: "Password Terlalu Pendek",
+				text: "Password harus lebih dari 8 karakter!",
 			}).then(() => {
 				setIsLoading(false);
 			});
-		} else {
-			const res = await fetch("/api/auth/register", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					email: e.currentTarget.email.value,
-					password: e.currentTarget.password.value,
-				}),
-			});
-
-			const { message } = await res.json();
-			if (res.status === 200) {
-				Swal.fire({
-					icon: "success",
-					title: "Akun Berhasil Didaftarkan",
-					text: message,
-				}).then(() => {
-					push("/login");
-				});
-			} else {
+		}
+		// kalau passwordnya gak kependekan
+		else {
+			if (
+				e.currentTarget.password.value !==
+				e.currentTarget.confirm_password.value
+			) {
 				Swal.fire({
 					icon: "error",
-					title: "Akun Gagal Didaftarkan",
-					text: message,
+					title: "Password Tidak sama...",
+					text: "Coba cek password dan konfirmasi password!",
 				}).then(() => {
 					setIsLoading(false);
 				});
+			} else {
+				const res = await fetch("/api/auth/register", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						email: e.currentTarget.email.value,
+						password: e.currentTarget.password.value,
+					}),
+				});
+
+				const { message } = await res.json();
+				if (res.status === 200) {
+					Swal.fire({
+						icon: "success",
+						title: "Akun Berhasil Didaftarkan",
+						text: message,
+					}).then(() => {
+						push("/login");
+					});
+				} else {
+					Swal.fire({
+						icon: "error",
+						title: "Akun Gagal Didaftarkan",
+						text: message,
+					}).then(() => {
+						setIsLoading(false);
+					});
+				}
 			}
 		}
+
+		return;
 	};
 	return (
 		<div className="dark w-full bg-gray-800 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -116,7 +131,7 @@ const Register = () => {
 					</div>
 					<button
 						type="submit"
-						disabled={isLoading}
+						// disabled={isLoading}
 						className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
 					>
 						{isLoading ? "Loading..." : "Daftar"}

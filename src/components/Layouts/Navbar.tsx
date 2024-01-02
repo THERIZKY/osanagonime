@@ -20,6 +20,7 @@ const Navbar = () => {
 						gapSize="gap-10"
 						size=""
 						hoverColor="text-slate-900"
+						status={"unauthenticated"}
 					/>
 				</div>
 			</div>
