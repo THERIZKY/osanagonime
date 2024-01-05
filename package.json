@@ -28,8 +28,6 @@
 		"eslint": "8.49.0",
 		"eslint-config-next": "^14.0.4",
 		"firebase": "^10.4.0",
-		"flowbite": "^2.0.0",
-		"flowbite-react": "^0.6.4",
 		"next": "^14.0.4",
 		"next-auth": "^4.24.5",
 		"postcss": "^8.4.31",
@@ -41,6 +39,7 @@
 		"typescript": "5.2.2"
 	},
 	"devDependencies": {
-		"@types/bcrypt": "^5.0.2"
+		"@types/bcrypt": "^5.0.2",
+		"daisyui": "^4.5.0"
 	}
 }

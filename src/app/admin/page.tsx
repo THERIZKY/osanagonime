@@ -11,7 +11,9 @@ export default function Admin() {
 			<div className="tab-container justify-around flex ">
 				<div className="w-1/5 h-[150px] bg-orange-200">test</div>
 				<div className="w-1/5 h-[150px] bg-orange-200">test</div>
-				<div className="w-1/5 h-[150px] bg-orange-200">test</div>
+				<div className="w-1/5 h-[150px] bg-orange-200">
+					<button className="btn btn-primary">Test</button>
+				</div>
 			</div>
 		</Fragment>
 	);

@@ -12,8 +12,7 @@ export default function MangaLayout({
 	return (
 		<Fragment>
 			<div className="flex flex-col">
-				<div>{navigation}</div>
-				<div>{children}</div>
+				<div className="pb-[4rem]">{children}</div>
 				<div>{navigation}</div>
 			</div>
 		</Fragment>
