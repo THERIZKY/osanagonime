@@ -12,6 +12,7 @@ const Sidebar = ({ status }: any) => {
 				</div>
 				<div className="flex flex-col h-[90%] justify-between">
 					<div className="nav-link flex flex-col gap-4 items-center pt-8 text-white">
+						{/* Manga */}
 						<Link
 							href={"/admin/manga"}
 							className="text-md hover:bg-slate-600 border border-slate-600 w-[96%] py-2 text-center rounded-md font-semibold transition-all duration-300 group"
@@ -20,6 +21,18 @@ const Sidebar = ({ status }: any) => {
 								Manga
 							</h3>
 						</Link>
+
+						{/* Chapter */}
+						<Link
+							href={"/admin/chapter"}
+							className="text-md hover:bg-slate-600 border border-slate-600 w-[96%] py-2 text-center rounded-md font-semibold transition-all duration-300 "
+						>
+							<h3 className="group-hover:scale-110 transition-all duration-300">
+								Chapter
+							</h3>
+						</Link>
+
+						{/* Anime */}
 						<Link
 							href={"/admin/Anime"}
 							className="text-md hover:bg-slate-600 border border-slate-600 w-[96%] py-2 text-center rounded-md font-semibold transition-all duration-300 group"
@@ -28,6 +41,8 @@ const Sidebar = ({ status }: any) => {
 								Anime
 							</h3>
 						</Link>
+
+						{/* Movie */}
 						<Link
 							href={"/admin/Movie"}
 							className="text-md hover:bg-slate-600 border border-slate-600 w-[96%] py-2 text-center rounded-md font-semibold transition-all duration-300 group"
