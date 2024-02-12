@@ -71,7 +71,7 @@ export async function getMangaDetails(title: string) {
 
 		const mangaTitle = selectedManga[0].attributes.title.en;
 		const mangaCover = await getMangaCover(title);
-		const mangaDescription = await getMangaDescription(title);
+		const mangaDescription = (await getMangaDescription(title)) || "";
 		const mangaSlug = slugify(mangaTitle, { lower: true });
 
 		return {

@@ -31,7 +31,7 @@ export const login = async (data: { email: string }) => {
 		id: doc.id,
 		...doc.data(),
 	}));
-
+	console.log(user);
 	if (user) {
 		return user[0];
 	} else {

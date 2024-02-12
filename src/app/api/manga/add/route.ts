@@ -27,7 +27,6 @@ export async function POST(request: NextRequest) {
 	// nambahin si data nya ke dalam database
 	if (data) {
 		const idManga = await getNextCounter();
-
 		await createManga(data, idManga);
 
 		return NextResponse.json({

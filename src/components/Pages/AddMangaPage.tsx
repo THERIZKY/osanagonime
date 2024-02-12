@@ -45,35 +45,16 @@ const AddDataMangaPage = () => {
 		</div>
 	) : (
 		<div className="flex flex-col items-center">
-			<h1 className="text-white text-center text-3xl font-bold py-3">
-				Tambah Data Manga
-			</h1>
+			<h1 className="text-white text-center text-3xl font-bold py-3">Tambah Data Manga</h1>
 			<div className=" w-3/4 flex flex-col items-center gap-10">
-				<form
-					method="post"
-					className="flex flex-col items-center gap-5 bg-orange-200 w-[500px] rounded-xl p-5"
-					onSubmit={(e) => submitHandler(e)}
-				>
+				<form method="post" className="flex flex-col items-center gap-5 bg-orange-200 w-[500px] rounded-xl p-5" onSubmit={(e) => submitHandler(e)}>
 					<label htmlFor="title">Judul Manga</label>
-					<input
-						type="text"
-						name="title"
-						id="title"
-						placeholder="Masukkan Judul Manga:"
-						className="w-[300px] h-[40px] rounded-xl pl-5"
-						onChange={handleTitleChange}
-					/>
-					<button
-						type="submit"
-						className="bg-orange-500 px-5 py-2 rounded"
-					>
+					<input type="text" name="title" id="title" placeholder="Masukkan Judul Manga:" className="w-[300px] h-[40px] rounded-xl pl-5" onChange={handleTitleChange} />
+					<button type="submit" className="bg-orange-500 px-5 py-2 rounded">
 						Tambah
 					</button>
 				</form>
-				<Link
-					href={"/admin/manga"}
-					className="bg-blue-600 px-5 py-2 rounded"
-				>
+				<Link href={"/admin/manga"} className="bg-blue-600 px-5 py-2 rounded">
 					Back To Manga List
 				</Link>
 			</div>

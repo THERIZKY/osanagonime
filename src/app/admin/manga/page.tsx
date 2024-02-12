@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Loading from "@/components/Elements/Loading";
 import Swal from "sweetalert2";
+import { revalidatePath } from "next/cache";
 
 interface MangaData {
 	id: string;
@@ -36,13 +37,10 @@ const AdminManga = () => {
 			});
 
 			if (res.status === 200) {
-				Swal.fire(
-					"Deleted!",
-					"Manga Has Successfull Deleted.",
-					"success",
-				).then(() => {
-					// router.push("/admin/manga");
-					refresh();
+				Swal.fire("Deleted!", "Manga Has Successfull Deleted.", "success").then(() => {
+					// push("/admin/manga");
+					window.location.reload();
+					// refresh();
 				});
 			}
 		} catch (error) {
@@ -197,10 +195,7 @@ const AdminManga = () => {
 							<tr>
 								<th>
 									<label>
-										<input
-											type="checkbox"
-											className="checkbox"
-										/>
+										<input type="checkbox" className="checkbox" />
 									</label>
 								</th>
 								<th>Name</th>
@@ -215,28 +210,18 @@ const AdminManga = () => {
 								<tr key={index} className="hover">
 									<th>
 										<label>
-											<input
-												type="checkbox"
-												className="checkbox"
-											/>
+											<input type="checkbox" className="checkbox" />
 										</label>
 									</th>
 									<td>
 										<div className="flex items-center gap-3">
 											<div className="avatar">
 												<div className="w-20 h-28">
-													<Image
-														width={150}
-														height={150}
-														src={item.cover}
-														alt="cover"
-													/>
+													<Image width={150} height={150} src={item.cover} alt="cover" />
 												</div>
 											</div>
 											<div>
-												<div className="font-bold">
-													{item.mangaTitle}
-												</div>
+												<div className="font-bold">{item.mangaTitle}</div>
 											</div>
 										</div>
 									</td>
@@ -244,22 +229,10 @@ const AdminManga = () => {
 									{/* <td>Purple</td> */}
 									<th>
 										<div className="flex gap-5">
-											<button
-												className="btn btn-warning px-5"
-												onClick={() =>
-													push(
-														`/admin/manga/edit/${item.id}`,
-													)
-												}
-											>
+											<button className="btn btn-warning px-5" onClick={() => push(`/admin/manga/edit/${item.id}`)}>
 												Edit
 											</button>
-											<button
-												className="btn btn-error px-5"
-												onClick={() =>
-													confirmHandler(item.id)
-												}
-											>
+											<button className="btn btn-error px-5" onClick={() => confirmHandler(item.id)}>
 												Delete
 											</button>
 										</div>
@@ -290,9 +263,6 @@ const AdminManga = () => {
 				>
 					Tambah Manga
 				</Link>
-				<button className="btn btn-success" onClick={() => refresh()}>
-					Refresh
-				</button>
 			</div>
 		</>
 	);

@@ -1,11 +1,4 @@
-import {
-	collection,
-	getDocs,
-	query,
-	where,
-	Timestamp,
-	orderBy,
-} from "firebase/firestore";
+import { collection, getDocs, query, where, Timestamp, orderBy } from "firebase/firestore";
 import db from "../setup";
 import { type } from "os";
 
@@ -13,10 +6,7 @@ import { type } from "os";
 export async function getDataManga(documentId: string = "") {
 	try {
 		if (documentId) {
-			const q = query(
-				collection(db, "manga"),
-				where("__name__", "==", documentId),
-			);
+			const q = query(collection(db, "manga"), where("__name__", "==", documentId));
 			const querySnapshot = await getDocs(q);
 			const data = querySnapshot.docs.map((doc) => ({
 				id: doc.id,
@@ -43,10 +33,7 @@ export async function getDataManga(documentId: string = "") {
 
 // ngambil data by ID
 export async function getMangaById(mangaId = "") {
-	const q = query(
-		collection(db, "manga"),
-		where("idManga", "==", Number(mangaId)),
-	);
+	const q = query(collection(db, "manga"), where("idManga", "==", Number(mangaId)));
 	const querySnapshot = await getDocs(q);
 	const data = querySnapshot.docs.map((doc) => ({
 		id: doc.id,
@@ -59,16 +46,10 @@ export async function getMangaById(mangaId = "") {
 }
 
 // Ini Fungsi Gak kepake, !!TAPI JANGAN DIAPUS!!
-export async function getAllChapter(
-	chapterId: string = "",
-	mangaId: string = "",
-) {
+export async function getAllChapter(chapterId: string = "", mangaId: string = "") {
 	try {
 		if (chapterId !== "") {
-			const q = query(
-				collection(db, "chapter"),
-				where("__name__", "==", chapterId),
-			);
+			const q = query(collection(db, "chapter"), where("__name__", "==", chapterId));
 			const querySnapshot = await getDocs(q);
 			const data = querySnapshot.docs.map((doc) => ({
 				id: doc.id,
@@ -79,10 +60,7 @@ export async function getAllChapter(
 		}
 
 		if (mangaId !== "") {
-			const q = query(
-				collection(db, "chapter"),
-				where("idManga", "==", mangaId),
-			);
+			const q = query(collection(db, "chapter"), where("idManga", "==", mangaId));
 			const querySnapshot = await getDocs(q);
 
 			const data = querySnapshot.docs.map((doc) => ({
@@ -110,16 +88,10 @@ export async function getAllChapter(
 }
 
 // fungsi buat ngambil data chapter berdasarkan request
-export async function getDataChapter(
-	chapterId: string = "",
-	mangaId: string = "",
-) {
+export async function getDataChapter(chapterId: string = "", mangaId: string = "") {
 	try {
 		if (chapterId !== "") {
-			const q = query(
-				collection(db, "chapter"),
-				where("__name__", "==", chapterId),
-			);
+			const q = query(collection(db, "chapter"), where("__name__", "==", chapterId));
 			const querySnapshot = await getDocs(q);
 			const data = querySnapshot.docs.map((doc) => ({
 				id: doc.id,
@@ -129,10 +101,7 @@ export async function getDataChapter(
 		}
 
 		if (mangaId !== "") {
-			const q = query(
-				collection(db, "chapter"),
-				where("idManga", "==", Number(mangaId)),
-			);
+			const q = query(collection(db, "chapter"), where("idManga", "==", Number(mangaId)));
 			const querySnapshot = await getDocs(q);
 			const data = querySnapshot.docs.map((doc) => ({
 				id: doc.id,
@@ -160,10 +129,7 @@ export const performInnerJoin = async (idManga: string = "") => {
 		let chapterQuery: any;
 
 		if (idManga) {
-			chapterQuery = query(
-				collection(db, "chapter"),
-				where("idManga", "==", Number(idManga)),
-			);
+			chapterQuery = query(collection(db, "chapter"), where("idManga", "==", Number(idManga)));
 		} else {
 			chapterQuery = query(collection(db, "chapter"));
 		}
@@ -177,10 +143,7 @@ export const performInnerJoin = async (idManga: string = "") => {
 			const idManga = chapterData.idManga;
 
 			// Ambil data manga yang sesuai berdasarkan idManga dari koleksi manga
-			const mangaQuery = query(
-				collection(db, "manga"),
-				where("idManga", "==", idManga),
-			);
+			const mangaQuery = query(collection(db, "manga"), where("idManga", "==", idManga));
 			const mangaSnapshot = await getDocs(mangaQuery);
 
 			return mangaSnapshot.docs.map((mangaDoc) => {
@@ -248,4 +211,20 @@ export const getMangaByRelease = async (typeOrder: any) => {
 	console.log(data);
 
 	return data;
+};
+
+export const searchSystem = async (queryName = "") => {
+	const q = query(collection(db, "manga"), where("slug", ">=", queryName), where("slug", "<=", queryName + "\uf8ff"));
+
+	// Lakukan query ke Firestore
+	const querySnapshot = await getDocs(q);
+
+	// Mendapatkan data dari hasil query
+	const data = querySnapshot.docs.map((doc) => ({
+		id: doc.id,
+		...doc.data(),
+	}));
+
+	// Output hasil query
+	console.log(data);
 };

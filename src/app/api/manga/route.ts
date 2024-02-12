@@ -1,9 +1,4 @@
-import {
-	getDataManga,
-	getMangaById,
-	convertToTimestamp,
-	getMangaByRelease,
-} from "@/utils/firebase/read/services";
+import { getDataManga, getMangaById, convertToTimestamp, getMangaByRelease, searchSystem } from "@/utils/firebase/read/services";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -11,6 +6,7 @@ export async function GET(request: NextRequest) {
 	const documentId: any = searchParams.get("documentId");
 	const idManga: any = searchParams.get("idManga");
 	const latestManga: any = searchParams.get("latestManga");
+	const search: any = searchParams.get("search");
 
 	// Kalo Manga ID nya gak null baru jalanin query
 	if (documentId) {
@@ -48,6 +44,14 @@ export async function GET(request: NextRequest) {
 		});
 	}
 
+	if (search) {
+		const data = await searchSystem(search);
+		return NextResponse.json({
+			status: 200,
+			message: "success",
+			data,
+		});
+	}
 	const data = await getDataManga();
 	return NextResponse.json({ status: 200, message: "Success", data });
 }
