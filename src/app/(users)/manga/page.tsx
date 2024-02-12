@@ -14,17 +14,13 @@ interface dataManga {
 
 export default function MangaList() {
 	const [dataManga, setDataManga] = useState<any>([]);
-	const searchParams = useSearchParams();
-
-	console.log(searchParams.get("search"));
-	const params = searchParams.get("search") || "";
 
 	// Use Effect
 	useEffect(() => {
 		const getAllManga = async () => {
 			const res = await fetch("/api/manga", {
 				method: "GET",
-				cache: "force-cache",
+				cache: "no-cache",
 				next: {
 					revalidate: 10,
 				},
@@ -33,23 +29,7 @@ export default function MangaList() {
 			setDataManga(data.data);
 		};
 
-		const getSearchManga = async () => {
-			const res = await fetch("/api/manga?search=" + params, {
-				method: "GET",
-				cache: "force-cache",
-				next: {
-					revalidate: 10,
-				},
-			});
-			const data = await res.json();
-			setDataManga(data.data);
-		};
-
-		if (params) {
-			getSearchManga();
-		} else {
-			getAllManga();
-		}
+		getAllManga();
 	}, []);
 	return (
 		<div>

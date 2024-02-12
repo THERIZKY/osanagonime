@@ -1,8 +1,16 @@
-import { login } from "@/utils/firebase/auth/services";
+import { getUserByEmail } from "@/utils/mysql/get/services";
 import { compare } from "bcrypt";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+
+// interface user {
+// 	id: number;
+// 	username: string;
+// 	email: string;
+// 	password: string;
+// 	role: string;
+// }
 
 const authOptions: NextAuthOptions = {
 	session: {
@@ -22,13 +30,12 @@ const authOptions: NextAuthOptions = {
 					email: string;
 					password: string;
 				};
-				const user: any = await login({ email });
+				const user: any = await getUserByEmail(email);
+
+				console.log(user);
 
 				if (user) {
-					const passwordConfirm = await compare(
-						password,
-						user.password,
-					);
+					const passwordConfirm = await compare(password, user.password);
 
 					if (passwordConfirm) {
 						return user;

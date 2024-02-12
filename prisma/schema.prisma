@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Manga {
+  idManga      Int       @id @default(autoincrement())
+  mangaTitle   String    @db.VarChar(255)
+  cover        String    @db.VarChar(144)
+  deskripsi    String    @db.VarChar(255)
+  published_at DateTime  @default(now())
+  slug         String    @db.VarChar(255)
+  chapters     Chapter[]
+}
+
+model Users {
+  id       Int     @id @default(autoincrement())
+  username String  @db.VarChar(144)
+  email    String  @db.VarChar(100)
+  password String  @db.VarChar(255)
+  role     String? @default("user")
+}
+
+model Chapter {
+  idChapter  Int    @id @default(autoincrement())
+  mangaId    Int
+  judulManga String @db.VarChar(255)
+  chapter    Int
+  mangaRef   Manga  @relation(fields: [mangaId], references: [idManga])
+
+  @@index([mangaId], map: "Chapter_mangaId_fkey")
+}

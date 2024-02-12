@@ -1,4 +1,5 @@
 import { getDataManga, getMangaById, convertToTimestamp, getMangaByRelease, searchSystem } from "@/utils/firebase/read/services";
+import { getAllManga } from "@/utils/mysql/get/services";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -44,14 +45,6 @@ export async function GET(request: NextRequest) {
 		});
 	}
 
-	if (search) {
-		const data = await searchSystem(search);
-		return NextResponse.json({
-			status: 200,
-			message: "success",
-			data,
-		});
-	}
-	const data = await getDataManga();
+	const data = await getAllManga();
 	return NextResponse.json({ status: 200, message: "Success", data });
 }

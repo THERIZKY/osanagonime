@@ -5,14 +5,15 @@ import { addDoc, collection } from "firebase/firestore";
 import db from "@/utils/firebase/setup";
 import { getNextCounter } from "@/utils/firebase/update/services";
 import { createManga } from "@/utils/firebase/create/services";
+import { postManga } from "@/utils/mysql/post/service";
 
 interface dataManga {
 	id: string;
-	deskripsi: string;
+	mangaDescription: string;
 	idManga: number;
 	mangaTitle: string;
-	cover: string;
-	slug: string;
+	mangaCover: string;
+	mangaSlug: string;
 }
 
 export async function POST(request: NextRequest) {
@@ -24,14 +25,11 @@ export async function POST(request: NextRequest) {
 	// Ngambil Data Manga Dari API
 	const data: any = await getMangaDetails(title);
 
-	// nambahin si data nya ke dalam database
 	if (data) {
-		const idManga = await getNextCounter();
-		await createManga(data, idManga);
-
+		await postManga(data);
 		return NextResponse.json({
 			status: 200,
-			message: "Success Added with id : " + idManga,
+			message: "Success Added Manga",
 		});
 	}
 

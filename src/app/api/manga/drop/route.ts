@@ -1,5 +1,6 @@
 import { deleteManga } from "@/utils/firebase/delete/services";
-import { NextRequest, NextResponse } from "next/server";
+import { dropAllChapterByMangaId, dropManga } from "@/utils/mysql/post/service";
+import { NextRequest, NextResponse as res } from "next/server";
 
 export async function DELETE(request: NextRequest) {
 	const req = await request.json();
@@ -7,23 +8,32 @@ export async function DELETE(request: NextRequest) {
 	const mangaId = req.id;
 
 	if (mangaId !== null) {
-		const isSuccess = await deleteManga(mangaId);
+		const chapterDeleted = await dropAllChapterByMangaId(mangaId);
 
-		if (isSuccess) {
-			return NextResponse.json({
-				status: 200,
-				message: "Data Berhasil Di Hapus",
+		if (chapterDeleted?.status === 200) {
+			const mangaDeleted = await dropManga(mangaId);
+
+			if (mangaDeleted?.status === 200) {
+				return res.json({
+					status: 200,
+					message: "Manga Berhasil Di Hapus",
+				});
+			}
+
+			return res.json({
+				status: 404,
+				message: "ID Tidak di temukan, periksa kembali ID nya",
 			});
 		}
 
-		return NextResponse.json({
-			status: 404,
-			message: "ID Tidak di temukan, periksa kembali ID nya",
+		return res.json({
+			status: 500,
+			message: "Something Wront Went Deleted The Chapter",
 		});
 	}
 
-	return NextResponse.json({
+	return res.json({
 		status: 500,
-		message: "Cannot Delete manga without any id",
+		message: "Manga Tidak Bisa Dihapus Tanpa ID",
 	});
 }

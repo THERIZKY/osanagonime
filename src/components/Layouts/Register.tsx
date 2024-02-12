@@ -24,10 +24,7 @@ const Register = () => {
 		}
 		// kalau passwordnya gak kependekan
 		else {
-			if (
-				e.currentTarget.password.value !==
-				e.currentTarget.confirm_password.value
-			) {
+			if (e.currentTarget.password.value !== e.currentTarget.confirm_password.value) {
 				Swal.fire({
 					icon: "error",
 					title: "Password Tidak sama...",
@@ -42,6 +39,7 @@ const Register = () => {
 						"Content-Type": "application/json",
 					},
 					body: JSON.stringify({
+						username: e.currentTarget.username.value,
 						email: e.currentTarget.email.value,
 						password: e.currentTarget.password.value,
 					}),
@@ -73,19 +71,23 @@ const Register = () => {
 	return (
 		<div className="dark w-full bg-gray-800 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
 			<div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-				<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-					Daftar Akun Baru
-				</h1>
-				<form
-					className="space-y-4 md:space-y-6"
-					method="POST"
-					onSubmit={onRegister}
-				>
+				<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Daftar Akun Baru</h1>
+				<form className="space-y-4 md:space-y-6" method="POST" onSubmit={onRegister}>
+					<div id="username">
+						<label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+							Username
+						</label>
+						<input
+							type="username"
+							name="username"
+							id="username"
+							className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+							placeholder="someone"
+							required
+						/>
+					</div>
 					<div id="email">
-						<label
-							htmlFor="email"
-							className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-						>
+						<label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
 							Your email
 						</label>
 						<input
@@ -98,10 +100,7 @@ const Register = () => {
 						/>
 					</div>
 					<div id="password">
-						<label
-							htmlFor="password"
-							className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-						>
+						<label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
 							Password
 						</label>
 						<input
@@ -114,10 +113,7 @@ const Register = () => {
 						/>
 					</div>
 					<div id="konfirmasiPassword">
-						<label
-							htmlFor="password"
-							className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-						>
+						<label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
 							Konfirmasi Password
 						</label>
 						<input
@@ -138,10 +134,7 @@ const Register = () => {
 					</button>
 					<p className="text-sm font-light text-gray-500 dark:text-gray-400">
 						Sudah Punya Akun?{" "}
-						<Link
-							href="/login"
-							className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-						>
+						<Link href="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">
 							Masuk
 						</Link>
 					</p>
