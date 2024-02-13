@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -26,11 +27,12 @@ model Users {
 }
 
 model Chapter {
-  idChapter  Int    @id @default(autoincrement())
-  mangaId    Int
-  judulManga String @db.VarChar(255)
-  chapter    Int
-  mangaRef   Manga  @relation(fields: [mangaId], references: [idManga])
+  idChapter    Int      @id @default(autoincrement())
+  mangaId      Int
+  judulChapter String   @db.VarChar(255)
+  chapter      Int
+  published_at DateTime @default(now())
+  mangaRef     Manga    @relation(fields: [mangaId], references: [idManga])
 
   @@index([mangaId], map: "Chapter_mangaId_fkey")
 }

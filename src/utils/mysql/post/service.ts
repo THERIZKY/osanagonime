@@ -22,6 +22,27 @@ export const postManga = async (dataManga: any) => {
 	}
 };
 
+export const postEditManga = async (dataManga: any) => {
+	try {
+		console.log(dataManga);
+		const manga = await prisma.manga.update({
+			where: {
+				idManga: Number(dataManga?.id),
+			},
+			data: {
+				cover: dataManga?.cover,
+				mangaTitle: dataManga?.title,
+				deskripsi: dataManga?.deskripsi,
+				slug: dataManga?.slug,
+			},
+		});
+
+		return manga;
+	} catch (err) {
+		console.error("Error Creating Manga", err);
+	}
+};
+
 export const dropManga = async (id: string) => {
 	try {
 		const res = await prisma.manga.delete({

@@ -1,26 +1,34 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Loading from "@/components/Elements/Loading";
-import { getMangaById } from "@/utils/firebase/read/services";
+import { useRouter } from "next/navigation";
+
 type ChapterType = {
-	id: string;
-	idManga: string;
-	judul: string;
+	idChapter: string;
+	mangaId: string;
+	// judulChapter: string;
+	judulManga: string;
 	chapter: number;
-	mangaTitle?: string; // Ini adalah opsi jika Anda ingin menambahkan judul manga
+	mangaRef: {
+		idManga: string;
+		mangaTitle: string;
+		slug: string;
+		deskripsi: string;
+		published_at: string;
+	};
 };
 
 const AdminChapter = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [dataChapter, setDataChapter] = useState<ChapterType[]>([]);
-	const [mangaCache, setMangaCache] = useState<ChapterType[]>([]);
+
+	const { push } = useRouter();
 
 	// UseEffect untuk mengumpulkan semua data chapter
 	useEffect(() => {
 		const getChapter = async () => {
 			try {
-				await fetch(`/api/chapter?includeManga=include`, {
+				await fetch(`/api/chapter?manga=include`, {
 					cache: "force-cache",
 					next: {
 						revalidate: 10,
@@ -49,14 +57,6 @@ const AdminChapter = () => {
 		getChapter();
 	}, []);
 
-	if (isLoading) {
-		return (
-			<div className="flex justify-center items-center h-screen gap-10 bg-slate-600">
-				<Loading />
-			</div>
-		);
-	}
-
 	return (
 		<section className="dark p-3 sm:p-5">
 			<div className="mx-auto max-w-screen-2xl px-4 lg:px-12">
@@ -67,10 +67,7 @@ const AdminChapter = () => {
 						<div className="w-full md:w-1/2">
 							{/* Buat Search */}
 							<form className="flex items-center">
-								<label
-									htmlFor="simple-search"
-									className="sr-only"
-								>
+								<label htmlFor="simple-search" className="sr-only">
 									Search
 								</label>
 								<div className="relative w-full">
@@ -105,21 +102,20 @@ const AdminChapter = () => {
 							<button
 								type="button"
 								className="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+								disabled={isLoading}
+								onClick={() => {
+									setIsLoading(true);
+									push("/admin/chapter/add");
+								}}
 							>
-								<svg
-									className="h-3.5 w-3.5 mr-2"
-									fill="currentColor"
-									viewBox="0 0 20 20"
-									xmlns="http://www.w3.org/2000/svg"
-									aria-hidden="true"
-								>
-									<path
-										clipRule="evenodd"
-										fillRule="evenodd"
-										d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-									/>
-								</svg>
-								Add product
+								{isLoading ? (
+									""
+								) : (
+									<svg className="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+										<path clipRule="evenodd" fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+									</svg>
+								)}
+								{isLoading ? "Loading..." : "Add Chapter"}
 							</button>
 						</div>
 					</div>
@@ -147,23 +143,14 @@ const AdminChapter = () => {
 							{/* Body Table */}
 							<tbody>
 								{dataChapter.map((data, index) => {
+									console.log(data);
 									return (
-										<tr
-											key={index}
-											className="border-b dark:border-gray-700"
-										>
-											<th
-												scope="row"
-												className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-											>
-												{data.judul}
+										<tr key={index} className="border-b dark:border-gray-700">
+											<th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+												{data?.judulManga}
 											</th>
-											<td className="px-4 py-3">
-												{data.chapter}
-											</td>
-											<td className="px-4 py-3">
-												{data.mangaTitle}
-											</td>
+											<td className="px-4 py-3">{data.chapter}</td>
+											<td className="px-4 py-3">{data.mangaRef.mangaTitle}</td>
 
 											<td className="px-4 py-3 flex items-center justify-start">
 												<div className=" flex gap-6">
@@ -179,28 +166,6 @@ const AdminChapter = () => {
 										</tr>
 									);
 								})}
-								{/* <tr className="border-b dark:border-gray-700">
-									<th
-										scope="row"
-										className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-									>
-										Introduction Chapter 1
-									</th>
-									<td className="px-4 py-3">1</td>
-									<td className="px-4 py-3">One Piece</td>
-
-									<td className="px-4 py-3 flex items-center justify-start">
-										<div className=" flex gap-6">
-											<button className="flex justify-center items-center bg-warning w-[4rem] h-9 text-center rounded-lg  text-black transition duration-300 ease-in-out transform hover:scale-110 active:scale-100">
-												Edit
-											</button>
-
-											<button className="flex justify-center items-center bg-danger w-[4rem] h-9 text-center rounded-lg  text-black transition duration-300 ease-in-out transform hover:scale-110 active:scale-100">
-												Delete
-											</button>
-										</div>
-									</td>
-								</tr> */}
 							</tbody>
 						</table>
 					</div>

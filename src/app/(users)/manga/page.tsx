@@ -20,7 +20,7 @@ export default function MangaList() {
 		const getAllManga = async () => {
 			const res = await fetch("/api/manga", {
 				method: "GET",
-				cache: "no-cache",
+				cache: "force-cache",
 				next: {
 					revalidate: 10,
 				},
@@ -33,9 +33,6 @@ export default function MangaList() {
 	}, []);
 	return (
 		<div>
-			{/* <div className="flex h-[3rem] justify-center items-center bg-gray-700">
-				<h1>Manga List</h1>
-			</div> */}
 			<Navbar />
 			<div className="cards flex gap-5 justify-center items-center h-screen">
 				{dataManga.map(({ mangaTitle, deskripsi, slug, cover }: dataManga, index: number) => (

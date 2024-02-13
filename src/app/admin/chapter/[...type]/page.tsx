@@ -11,7 +11,7 @@ interface HandlerDataMangaProps {
 const HandlerChapterPage = ({ params }: HandlerDataMangaProps) => {
 	const { type } = params;
 
-	console.log(type);
+	// console.log(type);
 
 	switch (type[0]) {
 		case "add":

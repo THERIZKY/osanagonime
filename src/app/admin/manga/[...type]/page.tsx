@@ -19,8 +19,6 @@ const HandlerDataManga = ({ params }: HandlerDataMangaProps) => {
 			return <AddDataMangaPage />;
 		case "edit":
 			return <EditDataMangaPage id={type[1]} />;
-		case "delete":
-			return <DeleteDataMangaPage id={type[1]} />;
 		default:
 			return redirect("/admin/manga");
 	}

@@ -111,7 +111,7 @@ const AdminManga = () => {
 									{/* <td>1</td> */}
 									<th>
 										<div className="flex gap-5">
-											<button className="btn btn-warning px-5" onClick={() => push(`/admin/manga/edit/${item.id}`)}>
+											<button className="btn btn-warning px-5" onClick={() => push(`/admin/manga/edit/${item.idManga}`)}>
 												Edit
 											</button>
 											<button

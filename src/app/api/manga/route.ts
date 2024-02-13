@@ -1,25 +1,23 @@
-import { getDataManga, getMangaById, convertToTimestamp, getMangaByRelease, searchSystem } from "@/utils/firebase/read/services";
-import { getAllManga } from "@/utils/mysql/get/services";
+// import { getDataManga, getMangaById, convertToTimestamp, getMangaByRelease, searchSystem } from "@/utils/firebase/read/services";
+import { getAllManga, getMangaById, getLatestManga, getMangaJoinChapter } from "@/utils/mysql/get/services";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
 	const searchParams = request.nextUrl.searchParams;
-	const documentId: any = searchParams.get("documentId");
-	const idManga: any = searchParams.get("idManga");
-	const latestManga: any = searchParams.get("latestManga");
-	const search: any = searchParams.get("search");
+	const idManga: string | null = searchParams.get("idManga");
+	const latestManga: string | null = searchParams.get("latestManga");
+	const chapter: string | null = searchParams.get("chapter");
 
-	// Kalo Manga ID nya gak null baru jalanin query
-	if (documentId) {
-		const data = await getDataManga(documentId);
-
+	if (chapter) {
+		const data = await getMangaJoinChapter();
 		return NextResponse.json({
 			status: 200,
-			message: "Success",
+			message: "success",
 			data,
 		});
 	}
 
+	console.log(idManga);
 	// kalo id Dari manga yang dikasih
 	if (idManga) {
 		const data = await getMangaById(idManga);
@@ -32,12 +30,7 @@ export async function GET(request: NextRequest) {
 	}
 
 	if (latestManga) {
-		let typeOrder = "asc";
-		if (latestManga === "latest") {
-			typeOrder = "desc";
-		}
-
-		const data = await getMangaByRelease(typeOrder);
+		const data = await getLatestManga();
 		return NextResponse.json({
 			status: 200,
 			message: "success",
