@@ -6,7 +6,6 @@ const prisma = new PrismaClient();
 
 export const postManga = async (dataManga: any) => {
 	try {
-		// console.log(dataManga);
 		const manga = await prisma.manga.create({
 			data: {
 				cover: dataManga?.mangaCover,
@@ -24,7 +23,6 @@ export const postManga = async (dataManga: any) => {
 
 export const postEditManga = async (dataManga: any) => {
 	try {
-		console.log(dataManga);
 		const manga = await prisma.manga.update({
 			where: {
 				idManga: Number(dataManga?.id),
@@ -64,6 +62,38 @@ export const dropManga = async (id: string) => {
 /* ---------------------------------------------------- */
 
 /* -------------Post Chapter To Database---------------- */
+export const postChapter = async (dataChapter: any) => {
+	try {
+		const { judulChapter, mangaId, chapter, image } = dataChapter;
+		const chapterPost = await prisma.chapter.create({
+			data: {
+				judulChapter: judulChapter,
+				mangaId: mangaId,
+				chapter: chapter,
+				image: image,
+			},
+		});
+
+		return chapterPost.idChapter;
+	} catch (err) {
+		console.log("Something Went Wrong : ", err);
+	}
+};
+
+export const dropChapterById = async (id: string) => {
+	try {
+		const res = await prisma.chapter.delete({
+			where: {
+				idChapter: Number(id),
+			},
+		});
+
+		return { status: 200, idDelete: res.idChapter };
+	} catch (err) {
+		console.error(err);
+	}
+};
+
 export const dropAllChapterByMangaId = async (id: string) => {
 	try {
 		if (id) {
@@ -111,12 +141,11 @@ export const postUser = async (data: { username: string; email: string; password
 					password: password,
 				},
 			});
-			console.log(user);
 			return { userExists: null, message: "User Berhasil Di tambahkan" };
 			// callback(null, "User Berhasil Di tambahkan");
 		}
 	} catch (err) {
-		console.log(err);
+		console.error(err);
 	}
 };
 /* ------------------------------------------------------- */

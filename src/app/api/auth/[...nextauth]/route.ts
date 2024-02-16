@@ -32,8 +32,6 @@ const authOptions: NextAuthOptions = {
 				};
 				const user: any = await getUserByEmail(email);
 
-				console.log(user);
-
 				if (user) {
 					const passwordConfirm = await compare(password, user.password);
 

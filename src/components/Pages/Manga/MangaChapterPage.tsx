@@ -1,6 +1,5 @@
 import Image from "next/image";
 const MangaChapterPage = ({ dataChapter }: any) => {
-	console.log(dataChapter);
 	const dataImage = `https://i.postimg.cc/KzhmgSTp/001.jpg
 https://i.postimg.cc/Dy030yDy/002.jpg
 https://i.postimg.cc/HnZGzfJg/003.jpg

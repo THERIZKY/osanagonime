@@ -3,7 +3,6 @@ import { NextRequest, NextResponse as res } from "next/server";
 
 export async function POST(request: NextRequest) {
 	const req = await request.json();
-	console.log(req);
 	if (req) {
 		await postEditManga(req);
 		return res.json({ status: 200, message: "success" });

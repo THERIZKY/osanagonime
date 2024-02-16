@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Loading from "@/components/Elements/Loading";
 import { useRouter } from "next/navigation";
+import { chapterConfirmHandler } from "@/utils/function/function";
 
 type ChapterType = {
 	idChapter: string;
@@ -29,9 +30,9 @@ const AdminChapter = () => {
 		const getChapter = async () => {
 			try {
 				await fetch(`/api/chapter?manga=include`, {
-					cache: "force-cache",
+					cache: "no-cache",
 					next: {
-						revalidate: 10,
+						revalidate: 1,
 					},
 				})
 					.then(async (res) => {
@@ -41,7 +42,6 @@ const AdminChapter = () => {
 						return await res.json();
 					})
 					.then((data) => {
-						console.log(data.data);
 						setDataChapter(data.data);
 						setIsLoading(false);
 					})
@@ -153,11 +153,18 @@ const AdminChapter = () => {
 
 											<td className="px-4 py-3 flex items-center justify-start">
 												<div className=" flex gap-6">
-													<button className="flex justify-center items-center bg-warning w-[4rem] h-9 text-center rounded-lg  text-black transition duration-300 ease-in-out transform hover:scale-110 active:scale-100">
+													<button className="btn btn-sm h-9 w-[5rem] btn-warning hover:scale-110" disabled={isLoading}>
 														Edit
 													</button>
 
-													<button className="flex justify-center items-center bg-danger w-[4rem] h-9 text-center rounded-lg  text-black transition duration-300 ease-in-out transform hover:scale-110 active:scale-100">
+													<button
+														className="btn btn-sm h-9 w-[5rem] btn-error hover:scale-110"
+														disabled={isLoading}
+														onClick={() => {
+															setIsLoading(true);
+															chapterConfirmHandler(Number(data?.idChapter), (loading: boolean) => setIsLoading(loading));
+														}}
+													>
 														Delete
 													</button>
 												</div>

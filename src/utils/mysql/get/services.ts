@@ -110,8 +110,6 @@ export async function getUserByEmail(email: string) {
 		},
 	});
 
-	console.log(user);
-
 	return user;
 }
 /* ---------------------------------------------------- */

@@ -17,7 +17,6 @@ export async function GET(request: NextRequest) {
 		});
 	}
 
-	console.log(idManga);
 	// kalo id Dari manga yang dikasih
 	if (idManga) {
 		const data = await getMangaById(idManga);
