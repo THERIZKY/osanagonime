@@ -20,7 +20,7 @@ export async function getDataManga(title: string) {
 		});
 		return response.data.data;
 	} catch (err) {
-		console.log("error : ", err);
+		console.error("error : ", err);
 	}
 }
 export async function getMangaCover(title: string) {
@@ -49,7 +49,7 @@ export async function getMangaCover(title: string) {
 
 		return coverLink;
 	} catch (err) {
-		console.log("error : ", err);
+		console.error("error : ", err);
 	}
 }
 

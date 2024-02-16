@@ -1,6 +1,5 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import { redirect } from "next/navigation";
 import { getChapterByMangaId } from "../mysql/get/services";
 
 /* ----------------Buat Halaman Admin Manga---------------------- */
@@ -24,7 +23,7 @@ const deleteManga = async (id: number) => {
 	}
 };
 
-export const deleteHandler = async (id: number, callback: Function) => {
+const deleteHandler = async (id: number, callback: Function) => {
 	// Ngecek Dlu Apakah Manga Ini Punya Chapter Yang Terhubung
 	const res = await fetch(`/api/chapter?idManga=${id}`);
 
@@ -72,5 +71,48 @@ export const confirmHandler = async (id: number, callback: Function) => {
 		}
 	});
 };
+
+/* ---------------------------------------------------------------- */
+
+/* ----------------Buat Halaman Admin Chapter---------------------- */
+const deleteChapter = async (id: number, callback: Function) => {
+	const res = await axios.delete("/api/chapter/drop", {
+		data: JSON.stringify({
+			id,
+		}),
+	});
+
+	if (res.data.status === 200) {
+		Swal.fire("Deleted!", "Chapter Has Successfull Deleted.", "success").then(() => {
+			window.location.reload();
+		});
+	}
+
+	if (res.data.status === 404) {
+		Swal.fire("Not Found Manga", "Manga Dengan id " + id + "Tidak Ditemukan", "question");
+		callback(false);
+	}
+};
+
+export const chapterConfirmHandler = async (id: number, callback: Function) => {
+	Swal.fire({
+		title: "Are you sure?",
+		text: "You won't be able to revert this!",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "Yes, delete it!",
+	}).then((result) => {
+		if (result.isConfirmed) {
+			deleteChapter(id, (loading: boolean) => callback(loading));
+		} else {
+			callback(false);
+		}
+	});
+};
+/* ---------------------------------------------------------------- */
+
+/* ---------------------- SOMETING ELSE --------------------------- */
 
 /* ---------------------------------------------------------------- */

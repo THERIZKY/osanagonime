@@ -43,7 +43,6 @@ const AdminManga = () => {
 						return res.json();
 					})
 					.then((data) => {
-						// console.log(data.data);
 						setDataManga(data.data);
 						setIsLoading(false);
 					})

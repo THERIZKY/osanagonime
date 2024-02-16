@@ -37,7 +37,7 @@ const EditDataMangaPage = ({ id }: { id: string }) => {
 					setIsLoading(false);
 				})
 				.catch((err) => {
-					console.log(err);
+					console.error(err);
 				});
 		};
 

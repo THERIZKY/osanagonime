@@ -40,8 +40,6 @@ export async function getMangaById(mangaId = "") {
 		...doc.data(),
 	}));
 
-	console.log(querySnapshot.docs);
-
 	return data;
 }
 
@@ -76,8 +74,6 @@ export async function getAllChapter(chapterId: string = "", mangaId: string = ""
 			id: doc.id,
 			...doc.data(),
 		}));
-
-		// console.log(data);
 
 		return data;
 	} catch (error) {
@@ -136,7 +132,6 @@ export const performInnerJoin = async (idManga: string = "") => {
 		const chaptersSnapshot: any = await getDocs(chapterQuery);
 		const joinedData: any = [];
 
-		console.log(chaptersSnapshot.docs);
 		// Ambil semua promise dari permintaan Firestore dan tunggu semuanya selesai
 		const promises = chaptersSnapshot.docs.map(async (chapterDoc: any) => {
 			const chapterData = chapterDoc.data();
@@ -162,7 +157,6 @@ export const performInnerJoin = async (idManga: string = "") => {
 		// Tunggu seluruh promise selesai dan gabungkan hasilnya
 		const results = await Promise.all(promises);
 
-		console.log(results);
 		// Flatten hasil array dari hasil permintaan Firestore
 		results.forEach((result) => {
 			joinedData.push(...result);
@@ -184,11 +178,8 @@ export const convertToDate = async (timeStampsDalamSecond: number) => {
 	// Contoh timestamp yang didapat dari Firestore
 	const firestoreTimestamp = Timestamp.fromMillis(1701712800 * 1000);
 
-	console.log(firestoreTimestamp);
 	// Konversi Firestore Timestamp menjadi objek Date
 	const dateObject = firestoreTimestamp.toDate();
-
-	console.log(dateObject); // Ini adalah objek tanggal (datetime) asli dari timestamp Firestore
 };
 
 // fungsi untuk rubah objek date ke timestamp
@@ -196,7 +187,6 @@ export const convertToTimestamp = () => {
 	const date = new Date();
 	const timestamp = Timestamp.fromDate(date);
 
-	console.log(timestamp);
 	return timestamp;
 };
 
@@ -207,8 +197,6 @@ export const getMangaByRelease = async (typeOrder: any) => {
 		id: doc.id,
 		...doc.data(),
 	}));
-
-	console.log(data);
 
 	return data;
 };
@@ -226,5 +214,4 @@ export const searchSystem = async (queryName = "") => {
 	}));
 
 	// Output hasil query
-	console.log(data);
 };
