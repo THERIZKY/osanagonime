@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 type ChapterType = {
 	idChapter: string;
 	mangaId: string;
-	// judulChapter: string;
-	judulManga: string;
+	judulChapter: string;
+	// judulManga: string;
 	chapter: number;
 	mangaRef: {
 		idManga: string;
@@ -143,11 +143,10 @@ const AdminChapter = () => {
 							{/* Body Table */}
 							<tbody>
 								{dataChapter.map((data, index) => {
-									console.log(data);
 									return (
 										<tr key={index} className="border-b dark:border-gray-700">
 											<th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-												{data?.judulManga}
+												{data?.judulChapter}
 											</th>
 											<td className="px-4 py-3">{data.chapter}</td>
 											<td className="px-4 py-3">{data.mangaRef.mangaTitle}</td>

@@ -107,6 +107,7 @@ const AdminManga = () => {
 											</div>
 										</div>
 									</td>
+									{/* {description.slice(0, 97)}... */}
 									<td>{item.deskripsi}</td>
 									{/* <td>1</td> */}
 									<th>

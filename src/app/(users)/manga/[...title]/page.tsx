@@ -10,9 +10,9 @@ export default function MangaPage({ params }: { params: { title: string } }) {
 	const [dataChapter, setDataChapter] = useState<any>([]);
 	useEffect(() => {
 		const getAllChapter = async () => {
-			const res = await fetch("/api/chapter?includeManga=include", {
+			const res = await fetch("/api/chapter?manga=include", {
 				method: "GET",
-				cache: "no-store",
+				cache: "no-cache",
 				next: {
 					revalidate: 10,
 				},
@@ -21,9 +21,9 @@ export default function MangaPage({ params }: { params: { title: string } }) {
 
 			const ChapterData = data.data;
 
-			const findedItem = ChapterData.find(
-				(dataItem: any) => dataItem.slug === params.title[0],
-			);
+			console.log(ChapterData);
+
+			const findedItem = ChapterData.find((dataItem: any) => dataItem.mangaRef.slug === params.title[0]);
 
 			console.log(findedItem);
 			setDataChapter(findedItem);

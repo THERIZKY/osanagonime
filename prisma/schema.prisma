@@ -12,7 +12,7 @@ model Manga {
   idManga      Int       @id @default(autoincrement())
   mangaTitle   String    @db.VarChar(255)
   cover        String    @db.VarChar(144)
-  deskripsi    String    @db.VarChar(255)
+  deskripsi    String    @db.LongText
   published_at DateTime  @default(now())
   slug         String    @db.VarChar(255)
   chapters     Chapter[]
@@ -32,6 +32,7 @@ model Chapter {
   judulChapter String   @db.VarChar(255)
   chapter      Int
   published_at DateTime @default(now())
+  image        String   @db.LongText
   mangaRef     Manga    @relation(fields: [mangaId], references: [idManga])
 
   @@index([mangaId], map: "Chapter_mangaId_fkey")

@@ -75,14 +75,25 @@ export async function getLatestChapter() {
 	return chapter;
 }
 
-export async function getChapterJoinManga() {
-	const chapter = await prisma.chapter.findMany({
-		include: {
-			mangaRef: true,
-		},
-		take: 5,
-	});
-	return chapter;
+export async function getChapterJoinManga(id?: number) {
+	if (id) {
+		const chapter = await prisma.chapter.findMany({
+			include: {
+				mangaRef: true,
+			},
+			where: {
+				mangaId: id,
+			},
+		});
+		return chapter;
+	} else {
+		const chapter = await prisma.chapter.findMany({
+			include: {
+				mangaRef: true,
+			},
+		});
+		return chapter;
+	}
 }
 /* ---------------------------------------------------- */
 
