@@ -1,8 +1,6 @@
 "use client";
 import Card from "@/components/Elements/Card";
-import Navbar from "@/components/Layouts/Navbar";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 
 // Interface
 interface dataManga {
@@ -33,7 +31,6 @@ export default function MangaList() {
 	}, []);
 	return (
 		<div>
-			<Navbar />
 			<div className="cards flex gap-5 justify-center items-center h-screen">
 				{dataManga.map(({ mangaTitle, deskripsi, slug, cover }: dataManga, index: number) => (
 					<Card key={index}>

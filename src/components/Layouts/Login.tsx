@@ -5,7 +5,7 @@ import { notFound, useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import Swal from "sweetalert2";
 
-const Login = () => {
+const Login = ({ params }: any) => {
 	const { push } = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -13,12 +13,13 @@ const Login = () => {
 		e.preventDefault();
 		setIsLoading(true);
 
+		const callbackUrl = params?.callbackUrl || "/";
 		try {
 			const res = await signIn("credentials", {
 				redirect: false,
 				email: e.currentTarget.email.value,
 				password: e.currentTarget.password.value,
-				callbackUrl: "/",
+				callbackUrl,
 			});
 
 			if (!res?.error) {
@@ -27,7 +28,7 @@ const Login = () => {
 					text: "Login berhasil!",
 					icon: "success",
 				}).then(() => {
-					push("/admin");
+					push(callbackUrl);
 				});
 			} else {
 				if (res.error === "CredentialsSignin") {
