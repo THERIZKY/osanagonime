@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const MangaDetailPage = (dataManga: any) => {
+	console.log(dataManga);
 	return (
 		<>
 			{dataManga && dataManga.chapters && (
@@ -18,7 +19,7 @@ const MangaDetailPage = (dataManga: any) => {
 					<div className="max-h-[50vh] overflow-y-auto">
 						<ul className="menu menu-lg w-full ">
 							{/* Kalo Manga Nya Gak Punya Chapter */}
-							{!dataManga.chapters.length && <h1 className="text-5xl text-center">Masih Belum ada Chapternya bos, sabar yaa👌</h1>}
+							{dataManga.totalChapter === 0 && <h1 className="text-5xl text-center">Masih Belum ada Chapternya bos, sabar yaa👌</h1>}
 
 							{/* Kalo Manga Nya ada chapter */}
 							{dataManga.chapters.map((chapter: any, index: any) => (

@@ -24,6 +24,7 @@ export default function MangaList() {
 				},
 			});
 			const data = await res.json();
+			console.log(data);
 			setDataManga(data.data);
 		};
 
