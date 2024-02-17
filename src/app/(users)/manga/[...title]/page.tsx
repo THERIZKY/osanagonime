@@ -1,10 +1,13 @@
 "use client";
+import { countChapter } from "@/app/serverAction/action1";
 import MangaChapterPage from "@/components/Pages/Manga/MangaChapterPage";
 import MangaDetailPage from "@/components/Pages/Manga/MangaDetailPage";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function MangaPage({ params }: { params: { title: string } }) {
 	const [dataManga, setDataManga] = useState<any>([]);
+	const [totalChapter, setTotalChapter] = useState<number>(0);
 
 	useEffect(() => {
 		const getManga = async () => {
@@ -16,12 +19,14 @@ export default function MangaPage({ params }: { params: { title: string } }) {
 				},
 			});
 			const data = await res.json();
-
 			const mangaData = data.data;
 
 			const findedItem = mangaData.find((dataItem: any) => dataItem.slug === params.title[0]);
 
 			setDataManga(findedItem);
+
+			// Buat Ngitung Jumlah Chapter yang dimiliki manga ini
+			setTotalChapter(await countChapter(params.title[0]));
 		};
 		getManga();
 	}, [params.title]);
@@ -29,6 +34,6 @@ export default function MangaPage({ params }: { params: { title: string } }) {
 	if (params.title[1]) {
 		return <MangaChapterPage />;
 	} else {
-		return <MangaDetailPage {...dataManga} />;
+		return <MangaDetailPage {...dataManga} totalChapter={totalChapter} />;
 	}
 }
