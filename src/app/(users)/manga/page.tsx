@@ -37,7 +37,7 @@ export default function MangaList() {
 	}, []);
 	return (
 		<div>
-			<div className="cards flex gap-5 justify-center items-center h-screen">
+			<div className="cards flex flex-col md:flex-row gap-5 justify-center items-center min-h-screen">
 				{dataManga.map(({ mangaTitle, deskripsi, slug, cover }: dataManga, index: number) => (
 					<Card key={index}>
 						<Card.header image={cover} />
