@@ -3,11 +3,12 @@ import Link from "next/link";
 
 const MangaDetailPage = (dataManga: any) => {
 	console.log(dataManga.cover);
-	const urlBg = `url(${dataManga.cover})`
+ const imgUrl = decodeURIComponent(dataManga.cover);
+ console.log(imgUrl);
 	return (
 		<>
 			{dataManga && dataManga.chapters && (
-				<div className="max-h-full" style={{backgroundImage : urlBg}}>
+				<div className="max-h-full" style={{backgroundImage : `url(${decodeURIComponent(dataManga.cover)})`}}>
 					<div className={`hero min-h-[100%] overflow-hidden bg-slate-800/75`}>
 						<div className="hero-content flex-col lg:flex-row">
 							<Image width={200} height={200} src={dataManga.cover} className="max-w-sm rounded-lg shadow-2xl" alt="" />
