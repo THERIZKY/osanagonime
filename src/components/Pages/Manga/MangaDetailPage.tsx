@@ -12,7 +12,7 @@ const MangaDetailPage = (dataManga: any) => {
 					
 					
 					
-					<div className={`hero min-h-[50%] overflow-hidden`}>
+					<div className={`hero place-items-stretch min-h-[50%] overflow-hidden`}>
 						<Image width={400} height={400} src={dataManga.cover} className="w-full h-full md:max-h-[40rem] lg:max-h-[21rem] object-cover pt-0 mt-0" alt="" />
 						<div className="hero-content h-full max-w-full flex-col lg:flex-row bg-slate-800/75 ">
 							<Image width={200} height={200} src={dataManga.cover} className="max-w-sm rounded-lg shadow-2xl" alt="" />
