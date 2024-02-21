@@ -1,45 +1,46 @@
 import Image from "next/image";
-import Link from "next/link";
+import NavbarContainer from "../Templates/Base/Navbar/NavbarContainer";
+import ButtonLink from "../Elements/Button/Link/NavigationLink";
+import Heading from "../Elements/Text/Heading";
+import FormContainer from "../Elements/Form/FormContainer";
+import FormInput from "../Elements/Form/Input";
+import Content from "../Elements/Content";
 
 const Navbar = () => {
 	return (
-		<>
-			<div className="navbar bg-base-100">
-				<div className="flex-1">
-					<Link href="/" className="btn btn-ghost text-base md:text-xl">
-						OsanagoManga
-					</Link>
-				</div>
-				<div className="flex-none gap-2">
-					<div className="form-control">
-						<form action="" className="input-group">
-							<input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
-						</form>
-					</div>
-					<div className="dropdown dropdown-end">
-						<div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-							<div className="w-10 rounded-full">
-								<Image width={100} height={100} alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-							</div>
-						</div>
-						<ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-							<li>
-								<a className="justify-between">
-									Profile
-									<span className="badge">New</span>
-								</a>
-							</li>
-							<li>
-								<a>Settings</a>
-							</li>
-							<li>
-								<a>Logout</a>
-							</li>
-						</ul>
-					</div>
-				</div>
+		<NavbarContainer>
+			<div className="flex-1">
+				<ButtonLink href="/" className="btn btn-ghost text-base md:text-xl">
+					<Heading level={1}>OsanagoManga</Heading>
+				</ButtonLink>
 			</div>
-		</>
+			<Content className="flex-none gap-2">
+				<FormContainer className="input-group">
+					<FormInput type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
+				</FormContainer>
+				<div className="dropdown dropdown-end">
+					<div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+						<div className="w-10 rounded-full">
+							<Image width={100} height={100} alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+						</div>
+					</div>
+					<ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+						<li>
+							<a className="justify-between">
+								Profile
+								<span className="badge">New</span>
+							</a>
+						</li>
+						<li>
+							<a>Settings</a>
+						</li>
+						<li>
+							<a>Logout</a>
+						</li>
+					</ul>
+				</div>
+			</Content>
+		</NavbarContainer>
 	);
 };
 

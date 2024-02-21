@@ -1,4 +1,4 @@
-const EditChapterPage = () => {
+const EditChapterPage = (dataManga: any) => {
 	return (
 		<div>
 			<div>

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Loading from "@/components/Elements/Loading";
+import Loading from "@/components/Elements/Loading/Loading";
 import { useRouter } from "next/navigation";
 import { chapterConfirmHandler } from "@/utils/function/function";
 

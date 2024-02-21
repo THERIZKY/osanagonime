@@ -2,7 +2,7 @@
 
 import "@/utils/firebase/read/services";
 import { useEffect, useState } from "react";
-import Loading from "../Elements/Loading";
+import Loading from "../../../Elements/Loading/Loading";
 import { useRouter } from "next/navigation";
 import "slugify";
 import slugify from "slugify";

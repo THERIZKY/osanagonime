@@ -1,10 +1,15 @@
-import Register from "@/components/Layouts/Register";
+import Register from "@/components/Layouts/Auth/Register";
+import Content from "@/components/Elements/Content";
+import Loading from "./loading";
+import { Suspense } from "react";
 
-const RegisterPage = () => {
+const RegisterPage = async () => {
 	return (
-		<div className="flex justify-center items-center w-100 h-screen overflow-hidden grow animate__animated animate__fadeInDown">
-			<Register />
-		</div>
+		<Content className="flex justify-center items-center w-100 h-screen overflow-hidden grow animate__animated animate__fadeInDown">
+			<Suspense fallback={<Loading />}>
+				<Register />
+			</Suspense>
+		</Content>
 	);
 };
 

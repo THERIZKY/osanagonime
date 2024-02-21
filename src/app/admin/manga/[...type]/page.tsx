@@ -1,6 +1,6 @@
 // Importing Component
-import AddDataMangaPage from "@/components/Pages/AddMangaPage";
-import EditDataMangaPage from "@/components/Pages/EditMangaPage";
+import AddDataMangaPage from "@/components/Pages/Manga/Admin/AddMangaPage";
+import EditDataMangaPage from "@/components/Pages/Manga/Admin/EditMangaPage";
 import { redirect } from "next/navigation";
 
 // Interface

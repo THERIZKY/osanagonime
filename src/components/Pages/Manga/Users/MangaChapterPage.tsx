@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import Loading from "@/components/Elements/Loading";
+import Loading from "@/components/Elements/Loading/Loading";
 import { useRouter, usePathname } from "next/navigation";
 import { countChapter } from "@/app/serverAction/action1";
 

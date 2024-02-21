@@ -3,11 +3,10 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
-const axios = require("axios");
+import axios from "axios";
 
 // Import component
-import Loading from "@/components/Elements/Loading";
+import Loading from "@/components/Elements/Loading/Loading";
 
 const AddDataMangaPage = () => {
 	const [title, setTitle] = useState("");

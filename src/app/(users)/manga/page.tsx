@@ -1,5 +1,5 @@
 "use client";
-import Card from "@/components/Elements/Card";
+import Card from "@/components/Elements/Card/Card";
 import { useEffect, useState } from "react";
 
 // Interface
@@ -25,12 +25,10 @@ export default function MangaList() {
 			});
 			const data = await res.json();
 
-		
-
 			console.log(data);
 
 			setDataManga(data.data);
-			console.log(data.data)
+			console.log(data.data);
 		};
 
 		getAllManga();
