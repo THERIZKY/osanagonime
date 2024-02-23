@@ -7,7 +7,7 @@ import ButtonLink from "@/components/Elements/Button/Link/NavigationLink";
 const AdminManga = async () => {
 	const getDataManga = async () => {
 		try {
-			const res = await fetch(`${process.env.BASE_URL}/api/manga`, {
+			const res = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/manga`, {
 				method: "GET",
 				cache: "no-store",
 			});
