@@ -15,10 +15,6 @@ export async function middleware(req: NextRequest) {
 	if (token.role !== "admin") {
 		return NextResponse.redirect(new URL("/", req.url));
 	}
-
-	if (req.nextUrl.pathname === "/login") {
-		return NextResponse.redirect(new URL("/admin", req.url));
-	}
 }
 
 export const config = {

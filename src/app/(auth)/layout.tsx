@@ -1,4 +1,3 @@
-"use client";
 import { Fragment } from "react";
 import "animate.css";
 
@@ -9,7 +8,7 @@ export default function AdminLayout({
 }) {
 	return (
 		<Fragment>
-			<div className="w-full min-h-screen  bg-slate-600">{children}</div>
+			<div className="w-full min-h-screen bg-slate-600 ">{children}</div>
 		</Fragment>
 	);
 }

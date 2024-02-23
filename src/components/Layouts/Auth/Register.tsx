@@ -101,11 +101,9 @@ const Register = () => {
 	);
 
 	return (
-		<Container className="dark w-full bg-gray-800 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-			<Content className="p-6 space-y-4 md:space-y-6 sm:p-8">
-				<Heading level={1} className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-					Daftar Akun Baru
-				</Heading>
+		<div className="dark w-full bg-gray-800 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+			<div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+				<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Daftar Akun Baru</h1>
 				<FormContainer action={registrationForm} onSubmit={() => setIsLoading(true)} className="space-y-4 md:space-y-6">
 					{renderInput("username", "Username", "someone", "text")}
 					{renderInput("email", "Your Email", "name@company.com", "email")}
@@ -118,15 +116,15 @@ const Register = () => {
 					>
 						{isLoading ? "Loading..." : "Daftar"}
 					</Button>
-					<Content className="text-sm font-light text-gray-500 dark:text-gray-400">
+					<div className="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
 						Sudah Punya Akun?{" "}
 						<ButtonLink href="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">
 							<Heading level={3}>Masuk</Heading>
 						</ButtonLink>
-					</Content>
+					</div>
 				</FormContainer>
-			</Content>
-		</Container>
+			</div>
+		</div>
 	);
 };
 

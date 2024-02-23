@@ -9,7 +9,7 @@ import Content from "../Elements/Content";
 const Navbar = () => {
 	return (
 		<NavbarContainer>
-			<div className="flex-1">
+			<div className="flex-1 ">
 				<ButtonLink href="/" className="btn btn-ghost text-base md:text-xl">
 					<Heading level={1}>OsanagoManga</Heading>
 				</ButtonLink>
@@ -20,7 +20,7 @@ const Navbar = () => {
 				</FormContainer>
 
 				{/* Jangan Dihapus Nanti Dipake Buat User kalo udah login */}
-				<div className="dropdown dropdown-end">
+				{/* <div className="dropdown dropdown-end">
 					<div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
 						<div className="w-10 rounded-full">
 							<Image width={50} height={50} alt="Tailwind CSS Navbar component" src="/user-profil.svg" />
@@ -40,7 +40,7 @@ const Navbar = () => {
 							<a>Logout</a>
 						</li>
 					</ul>
-				</div>
+				</div> */}
 			</Content>
 		</NavbarContainer>
 	);
