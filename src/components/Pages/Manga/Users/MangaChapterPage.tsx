@@ -21,7 +21,7 @@ const MangaChapterPage = async ({ slug, chapter }: { slug: string; chapter: stri
 				}
 			});
 
-			const imageArray = findedChapter.image.split("\n").filter((image: any) => image !== "");
+			const imageArray = findedChapter.image.split("\n").filter(Boolean);
 			return imageArray;
 		} catch (error) {
 			console.error(error);
