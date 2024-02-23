@@ -1,6 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import { getChapterByMangaId } from "../mysql/get/services";
+import qs from "qs";
 
 /* ----------------Buat Halaman Admin Manga---------------------- */
 
@@ -55,6 +56,7 @@ const deleteHandler = async (id: number, callback: Function) => {
 };
 
 export const confirmHandler = async (id: number, callback: Function) => {
+	console.log(id);
 	Swal.fire({
 		title: "Are you sure?",
 		text: "You won't be able to revert this!",
@@ -114,5 +116,8 @@ export const chapterConfirmHandler = async (id: number, callback: Function) => {
 /* ---------------------------------------------------------------- */
 
 /* ---------------------- SOMETING ELSE --------------------------- */
-
+export const urlParams = ({ params, pathname, key, value }: { params: string; pathname: string; key: string; value: string | null }) => {
+	const newUrl = `${pathname}?${key}=${value}`;
+	return newUrl;
+};
 /* ---------------------------------------------------------------- */

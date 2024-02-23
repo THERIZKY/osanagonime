@@ -1,7 +1,9 @@
 // Importing Component
+import Loading from "@/app/(auth)/loading";
 import AddDataMangaPage from "@/components/Pages/Manga/Admin/AddMangaPage";
 import EditDataMangaPage from "@/components/Pages/Manga/Admin/EditMangaPage";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 // Interface
 interface HandlerDataMangaProps {

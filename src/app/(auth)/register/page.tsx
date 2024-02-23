@@ -1,6 +1,6 @@
 import Register from "@/components/Layouts/Auth/Register";
 import Content from "@/components/Elements/Content";
-import Loading from "./loading";
+import Loading from "../loading";
 import { Suspense } from "react";
 
 const RegisterPage = async () => {

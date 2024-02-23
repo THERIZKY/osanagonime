@@ -1,72 +1,78 @@
 "use client";
-
-import Container from "@/components/Elements/Container";
+import { Suspense, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-
-interface MangaData {
-	id: string;
-	deskripsi: string;
-	idManga: number;
-	mangaTitle: string;
-	cover: string;
-	slug: string;
-	type: string;
-}
+import { confirmHandler } from "@/utils/function/function";
+import Button from "@/components/Elements/Button/Buttons/Button";
+import Loading from "@/components/Elements/Loading/Loading";
 
 const AdminMangaPage = ({ dataManga }: any) => {
+	const [isLoading, setIsLoading] = useState(false);
+	const { push } = useRouter();
+
 	return (
-		<Container className="pt-11 px-6">
-			<div className="overflow-x-auto">
-				<table className="table">
-					{/* head */}
-					<thead>
-						<tr>
-							<th>
-								<label>
-									<input type="checkbox" className="checkbox" />
-								</label>
-							</th>
-							<th>Judul Manga</th>
-							<th>Deskripsi</th>
-							<th>Favorite Color</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						{/* row 1 */}
-						<tr>
+		<table className="table overflow-y-auto ">
+			{/* head */}
+			<thead>
+				<tr>
+					<th>
+						<label>
+							<input type="checkbox" className="checkbox" />
+						</label>
+					</th>
+					<th>Judul Manga</th>
+					<th>Deskripsi</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{dataManga &&
+					dataManga.data.map((manga: any, index: number) => (
+						<tr key={index}>
 							<th>
 								<label>
 									<input type="checkbox" className="checkbox" />
 								</label>
 							</th>
 							<td>
-								<div className="flex items-center gap-3">
-									<div className="avatar">
-										<div className="mask mask-squircle w-12 h-12">
-											<Image width={200} height={200} priority src="/tailwind-css-component-profile-2@56w.png" alt="Manga Cover" />
-										</div>
+								<div className="flex items-center gap-3 justify-start">
+									<div className="w-20 h-40">
+										<Image width={200} height={200} priority src={manga.cover} alt="Manga Cover" />
 									</div>
 									<div>
-										<div className="font-bold">Hart Hagerty</div>
-										<div className="text-sm opacity-50">United States</div>
+										<div className="font-bold">{manga.mangaTitle}</div>
 									</div>
 								</div>
 							</td>
-							<td>
-								Zemlak, Daniel and Leannon
-								<br />
-								<span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
-							</td>
-							<td>Purple</td>
+							<td className="w-2/3">{manga.deskripsi}</td>
 							<th>
-								<button className="btn btn-ghost btn-xs">details</button>
+								<div className="flex flex-col gap-5">
+									<Button
+										className="btn btn-error btn-md"
+										disabled={isLoading}
+										onClick={() => {
+											<Suspense fallback={<Loading />} />;
+											confirmHandler(manga.idManga, (loading: boolean) => setIsLoading(loading));
+										}}
+									>
+										hapus
+									</Button>
+									<Button
+										onClick={() => {
+											setIsLoading(true);
+											push("/admin/manga/edit/" + manga.idManga);
+										}}
+										disabled={isLoading}
+										className="btn btn-warning btn-md"
+									>
+										Edit
+									</Button>
+								</div>
 							</th>
 						</tr>
-					</tbody>
-				</table>
-			</div>
-		</Container>
+					))}
+			</tbody>
+		</table>
 	);
 };
 

@@ -1,26 +1,38 @@
 import { Suspense } from "react";
 import Loading from "@/components/Elements/Loading/Loading";
 import AdminMangaPage from "@/components/Pages/Manga/Admin/AdminMangaPage";
-
-interface MangaData {
-	id: string;
-	deskripsi: string;
-	idManga: number;
-	mangaTitle: string;
-	cover: string;
-	slug: string;
-	type: string;
-}
+import Container from "@/components/Elements/Container";
+import ButtonLink from "@/components/Elements/Button/Link/NavigationLink";
 
 const AdminManga = async () => {
-	const res = await fetch(`${process.env.BASE_URL}/api/manga`, {
-		method: "GET",
-	});
+	const getDataManga = async () => {
+		try {
+			const res = await fetch(`${process.env.BASE_URL}/api/manga`, {
+				method: "GET",
+				cache: "no-store",
+			});
 
-	const dataManga = await res.json();
+			if (!res.ok) {
+				throw new Error("Failed to fetch manga data");
+			}
+
+			return res.json();
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const dataManga = await getDataManga();
 	return (
 		<Suspense fallback={<Loading />}>
-			<AdminMangaPage dataManga={dataManga} />
+			<Container className="pt-11 px-6 text-center">
+				<div className="overflow-x-auto max-h-[70vh] text-center">
+					<AdminMangaPage dataManga={dataManga} />
+				</div>
+				<ButtonLink href="/admin/manga/add" className="btn btn-wide btn-primary mt-10">
+					Add Manga
+				</ButtonLink>
+			</Container>
 		</Suspense>
 	);
 };
