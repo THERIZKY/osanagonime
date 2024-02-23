@@ -1,5 +1,5 @@
 "use client";
-import { countChapter } from "@/app/serverAction/action1";
+import { countChapter } from "@/utils/serverAction/action1";
 import MangaChapterPage from "@/components/Pages/Manga/Users/MangaChapterPage";
 import MangaDetailPage from "@/components/Pages/Manga/Users/MangaDetailPage";
 import { useEffect, useState } from "react";
@@ -34,8 +34,10 @@ export default function MangaPage({ params }: { params: { title: string } }) {
 		getManga();
 	}, [params.title]);
 
+	console.log(params.title[0]);
+
 	if (params.title[1]) {
-		return <MangaChapterPage />;
+		return <MangaChapterPage slug={params.title[0]} />;
 	} else {
 		return <MangaDetailPage {...dataManga} totalChapter={totalChapter} />;
 	}

@@ -1,48 +1,31 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import Loading from "@/components/Elements/Loading/Loading";
-import { useRouter, usePathname } from "next/navigation";
-import { countChapter } from "@/app/serverAction/action1";
+import NavigationBottom from "@/components/Layouts/NavigationBottom";
+import { getChapterJoinManga } from "@/utils/mysql/get/services";
 
-const MangaChapterPage = (chapterData: any) => {
-	const [image, setImage] = useState<string[]>([]);
-	const [isLoading, setIsLoading] = useState<boolean>(true);
+const MangaChapterPage = async ({ slug }: any) => {
+	const image: string[] = [""];
 
-	const pathPart = usePathname().split("/").filter(Boolean);
-	const chapterBerapa = pathPart[2];
-
-	useEffect(() => {
-		const hitungJumlahChapter = async () => {
-			const totalChapter = await countChapter(pathPart[1]);
-			console.log(totalChapter);
-		};
-
-		hitungJumlahChapter();
-	}, []);
-
-	useEffect(() => {
-		chapterData.image && setImage(chapterData.image.split(" "));
-		setTimeout(() => {
-			setIsLoading(false);
-		}, 1200);
-	}, [chapterData]);
-
-	if (isLoading) {
-		return (
-			<div className="w-full flex flex-col items-center">
-				<div className="skeleton w-[90%] items-center h-screen"></div>
-			</div>
-		);
+	try {
+		const dataChapter = await getChapterJoinManga();
+		dataChapter.filter((chapter: any) => {
+			if (chapter.mangaRef.slug === slug) {
+				console.log(chapter);
+			}
+		});
+		console.log(dataChapter);
+	} catch (error) {
+		console.error(error);
 	}
 
 	return (
 		<>
-			<div className="w-full flex flex-col items-center">
+			<div className="w-full flex flex-col items-center pb-4">
 				{image &&
 					image.map((item: string, index: number) => {
-						return <Image key={index} src={item} width={1500} height={1500} alt="image" className="object-cover" />;
+						return <Image key={index} src={item} width={1500} height={1500} alt="image for read" className="object-cover" />;
 					})}
 			</div>
+			<NavigationBottom />
 		</>
 	);
 };

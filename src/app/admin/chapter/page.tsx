@@ -1,5 +1,4 @@
 import AdminChapterPage from "@/components/Pages/Chapter/Admin/AdminChapterPage";
-import axios from "axios";
 
 type ChapterType = {
 	idChapter: string;
@@ -28,7 +27,7 @@ const AdminChapter = async () => {
 		}
 	};
 
-	const dataChapter = await getContent();
+	const dataChapter: ChapterType[] = await getContent();
 
 	return (
 		<section className="dark p-3 sm:p-5">

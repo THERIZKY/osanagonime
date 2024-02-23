@@ -1,4 +1,4 @@
-import { submitHandler } from "@/app/serverAction/action1";
+import { submitHandler } from "@/utils/serverAction/action1";
 
 const AddChapterPage = ({ dataManga }: any) => {
 	return (

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import AddChapterPage from "@/components/Pages/Chapter/Admin/AddChapterPage";
 import EditChapterPage from "@/components/Pages/Chapter/Admin/EditChapterPage";
 import { useEffect, useState } from "react";
+import { notFound } from "next/navigation";
 
 interface interfaceChapterPage {
 	params: {
@@ -46,7 +47,7 @@ const HandlerChapterPage = ({ params }: interfaceChapterPage) => {
 		case "edit":
 			return <EditChapterPage dataManga={dataManga} />;
 		default:
-			return redirect("/admin/chapter");
+			return notFound();
 	}
 };
 

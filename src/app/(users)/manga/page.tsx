@@ -1,47 +1,32 @@
-"use client";
 import Card from "@/components/Elements/Card/Card";
-import { useEffect, useState } from "react";
+import { getAllManga } from "@/utils/mysql/get/services";
+import Link from "next/link";
 
 // Interface
-interface dataManga {
+interface interfaceDataManga {
 	mangaTitle: string;
 	deskripsi: string;
 	slug: string;
 	cover: string;
 }
 
-export default function MangaList() {
-	const [dataManga, setDataManga] = useState<any>([]);
-
-	// Use Effect
-	useEffect(() => {
-		const getAllManga = async () => {
-			const res = await fetch("/api/manga", {
-				method: "GET",
-				cache: "force-cache",
-				next: {
-					revalidate: 10,
-				},
-			});
-			const data = await res.json();
-
-			console.log(data);
-
-			setDataManga(data.data);
-			console.log(data.data);
-		};
-
-		getAllManga();
-	}, []);
+export default async function MangaList() {
+	let dataManga: interfaceDataManga[] = [];
+	try {
+		dataManga = await getAllManga();
+	} catch (error) {
+		console.error(error);
+	}
 	return (
 		<div>
-			<div className="cards flex flex-col md:flex-row gap-5 justify-center items-center min-h-screen">
-				{dataManga.map(({ mangaTitle, deskripsi, slug, cover }: dataManga, index: number) => (
-					<Card key={index}>
-						<Card.header image={cover} />
-						<Card.body title={mangaTitle} description={deskripsi} />
-						<Card.footer slug={slug} />
-					</Card>
+			<div className="cards flex flex-col md:flex-row items-center md:items-start gap-5 min-h-screen p-5">
+				{dataManga.map(({ mangaTitle, deskripsi, slug, cover }: interfaceDataManga, index: number) => (
+					<Link href={"/manga/" + slug}>
+						<Card key={index}>
+							<Card.header image={cover} />
+							<Card.body title={mangaTitle} description={deskripsi} />
+						</Card>
+					</Link>
 				))}
 			</div>
 		</div>
