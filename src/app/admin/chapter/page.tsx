@@ -19,7 +19,7 @@ type ChapterType = {
 const AdminChapter = async () => {
 	const getContent = async () => {
 		try {
-			const res = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/chapter?manga=include`, { next: { revalidate: 1 } });
+			const res = await fetch(`http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/chapter?manga=include`, { next: { revalidate: 1 } });
 
 			const data = await res.json();
 			return data.data;

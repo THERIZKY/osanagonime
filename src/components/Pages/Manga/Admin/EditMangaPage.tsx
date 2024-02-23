@@ -13,7 +13,7 @@ interface MangaData {
 }
 
 const EditDataMangaPage = async ({ id }: { id: string }) => {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/manga?idManga=` + id, { method: "GET" });
+	const res = await fetch(`http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/manga?idManga=` + id, { method: "GET" });
 
 	const selectedManga: MangaData = await res.json();
 
