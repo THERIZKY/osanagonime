@@ -25,8 +25,6 @@ export default function MangaPage({ params }: { params: { title: string } }) {
 
 				setDataManga(findedItem);
 
-				console.log(dataManga);
-
 				// Buat Ngitung Jumlah Chapter yang dimiliki manga ini
 				setTotalChapter(await countChapter(params.title[0]));
 			} catch (error) {

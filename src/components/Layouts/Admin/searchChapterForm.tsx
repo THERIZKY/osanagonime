@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import { urlParams } from "@/utils/function/function";
 
-const searchChapterForm = () => {
+const SearchChapterForm = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [search, setSearch] = useState("");
 	const { push } = useRouter();
@@ -84,4 +84,4 @@ const searchChapterForm = () => {
 	);
 };
 
-export default searchChapterForm;
+export default SearchChapterForm;

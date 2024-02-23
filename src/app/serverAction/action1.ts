@@ -17,3 +17,19 @@ export async function countChapter(slug: string) {
 
 	return count;
 }
+
+/* Buat Chapter Add */
+export async function submitHandler(formData: FormData) {
+	const { judulChapter, mangaId, chapter, image }: any = Object.fromEntries(formData);
+
+	const res = await postChapter({
+		judulChapter,
+		mangaId,
+		chapter,
+		image,
+	});
+
+	if (res) {
+		redirect(`/admin/chapter`);
+	}
+}

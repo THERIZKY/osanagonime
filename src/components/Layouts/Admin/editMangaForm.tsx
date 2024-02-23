@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import slugify from "slugify";
 import Button from "@/components/Elements/Button/Buttons/Button";
 
-const editMangaForm = ({ selectedManga, id }: any) => {
+const EditMangaForm = ({ selectedManga, id }: any) => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const { push } = useRouter();
 
@@ -53,4 +53,4 @@ const editMangaForm = ({ selectedManga, id }: any) => {
 	);
 };
 
-export default editMangaForm;
+export default EditMangaForm;

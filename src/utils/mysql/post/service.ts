@@ -64,7 +64,6 @@ export const dropManga = async (id: string) => {
 /* -------------Post Chapter To Database---------------- */
 export const postChapter = async (dataChapter: any) => {
 	try {
-		console.log(dataChapter);
 		const { judulChapter, mangaId, chapter, image } = dataChapter;
 		const chapterPost = await prisma.chapter.create({
 			data: {

@@ -6,7 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const addMangaForm = () => {
+const AddMangaForm = () => {
 	const [title, setTitle] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const { push } = useRouter();
@@ -47,4 +47,4 @@ const addMangaForm = () => {
 	);
 };
 
-export default addMangaForm;
+export default AddMangaForm;

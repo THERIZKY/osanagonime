@@ -1,7 +1,6 @@
 import { submitHandler } from "@/app/serverAction/action1";
 
 const AddChapterPage = ({ dataManga }: any) => {
-	console.log(dataManga);
 	return (
 		<div>
 			<form action={submitHandler} className="flex flex-col gap-2 w-full pt-8 p-2 placeholder-gray-500::placeholder bg-opacity-0::placeholder">
