@@ -62,6 +62,8 @@ export async function getChapterByChapterId(id: number) {
 			idChapter: id,
 		},
 	});
+
+	return chapter;
 }
 
 export async function getLatestChapter() {

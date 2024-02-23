@@ -1,6 +1,19 @@
-import { submitHandler } from "@/utils/serverAction/action1";
+import { getAllManga } from "@/utils/mysql/get/services";
+import { submitHandler } from "@/utils/serverAction/action";
 
-const AddChapterPage = ({ dataManga }: any) => {
+const AddChapterPage = async () => {
+	let dataManga: any = [];
+
+	const getManga = async () => {
+		try {
+			return await getAllManga();
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	dataManga = await getManga();
+
 	return (
 		<div>
 			<form action={submitHandler} className="flex flex-col gap-2 w-full pt-8 p-2 placeholder-gray-500::placeholder bg-opacity-0::placeholder">
@@ -29,8 +42,6 @@ const AddChapterPage = ({ dataManga }: any) => {
 									{manga.mangaTitle}
 								</option>
 							))}
-						{/* {Array.from({ length: 5 }).map((_, index) => (
-						))} */}
 					</datalist>
 				</label>
 				<label className="flex flex-col gap-1 h-32" htmlFor="chapter">

@@ -80,6 +80,22 @@ export const postChapter = async (dataChapter: any) => {
 	}
 };
 
+export const editChapter = async (dataChapter: any) => {
+	const res = await prisma.chapter.update({
+		where: {
+			idChapter: dataChapter.idChapter,
+		},
+		data: {
+			judulChapter: dataChapter.judulChapter,
+			chapter: dataChapter.chapter,
+			mangaId: dataChapter.mangaId,
+			image: dataChapter.image,
+		},
+	});
+
+	return res;
+};
+
 export const dropChapterById = async (id: string) => {
 	try {
 		const res = await prisma.chapter.delete({

@@ -1,9 +1,7 @@
 // Importing Component
-import Loading from "@/app/(auth)/loading";
 import AddDataMangaPage from "@/components/Pages/Manga/Admin/AddMangaPage";
 import EditDataMangaPage from "@/components/Pages/Manga/Admin/EditMangaPage";
-import { redirect } from "next/navigation";
-import { Suspense } from "react";
+import { notFound } from "next/navigation";
 
 // Interface
 interface HandlerDataMangaProps {
@@ -21,7 +19,7 @@ const HandlerDataManga = ({ params }: HandlerDataMangaProps) => {
 		case "edit":
 			return <EditDataMangaPage id={type[1]} />;
 		default:
-			return redirect("/admin/manga");
+			return notFound();
 	}
 };
 

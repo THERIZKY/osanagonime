@@ -1,12 +1,14 @@
 "use client";
 
 import { chapterConfirmHandler } from "@/utils/function/function";
-import React, { useState } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import SearchChapterForm from "@/components/Layouts/Admin/searchChapterForm";
 
 const AdminChapterPage = ({ dataChapter }: any) => {
 	const [isLoading, setIsLoading] = useState(false);
+	const { push } = useRouter();
 
 	return (
 		<>
@@ -44,7 +46,14 @@ const AdminChapterPage = ({ dataChapter }: any) => {
 
 										<td className="px-4 py-3 flex items-center justify-start">
 											<div className=" flex gap-6">
-												<button className="btn btn-sm h-9 w-[5rem] btn-warning hover:scale-110" disabled={isLoading}>
+												<button
+													className="btn btn-sm h-9 w-[5rem] btn-warning hover:scale-110"
+													disabled={isLoading}
+													onClick={() => {
+														setIsLoading(true);
+														push(`/admin/chapter/edit/${data?.idChapter}`);
+													}}
+												>
 													Edit
 												</button>
 

@@ -1,7 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const MangaDetailPage = (dataManga: any) => {
+const MangaDetailPage = async ({ slug }: any) => {
+	// const manga = await getMangaJoinChapter();
+	const res = await fetch(`http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/manga?chapter=include`, { method: "GET", next: { revalidate: 1 } });
+
+	const mangaJSON = await res.json();
+	const manga = mangaJSON.data;
+
+	const findedManga = manga.find((mangaItems: any) => {
+		if (mangaItems.slug === slug) {
+			return mangaItems;
+		}
+	});
+
+	const dataManga: any = findedManga;
+
 	const imgUrl = decodeURIComponent(dataManga.cover);
 	return (
 		<>
@@ -25,7 +39,7 @@ const MangaDetailPage = (dataManga: any) => {
 								{/* Kalo Manga Nya ada chapter */}
 								{dataManga.chapters.map((chapter: any, index: any) => (
 									<li key={chapter.id}>
-										<Link className=" bg-base-100 outline outline-1 outline-base-300" href={`/manga/${dataManga.slug}/${chapter.idChapter}`}>
+										<Link className=" bg-base-100 outline outline-1 outline-base-300" href={`/manga/${dataManga.slug}/${chapter.chapter}`}>
 											{index + 1 + ". "}
 											{chapter.judulChapter}
 										</Link>

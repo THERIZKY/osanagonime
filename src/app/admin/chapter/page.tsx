@@ -1,15 +1,17 @@
 import AdminChapterPage from "@/components/Pages/Chapter/Admin/AdminChapterPage";
+import { getChapterJoinManga } from "@/utils/mysql/get/services";
 
 type ChapterType = {
-	idChapter: string;
-	mangaId: string;
+	idChapter: number;
+	mangaId: number;
 	judulChapter: string;
-	// judulManga: string;
 	chapter: number;
+	image: string;
 	mangaRef: {
-		idManga: string;
+		idManga: number;
 		mangaTitle: string;
 		slug: string;
+		cover: string;
 		deskripsi: string;
 		published_at: string;
 	};
@@ -18,16 +20,14 @@ type ChapterType = {
 const AdminChapter = async () => {
 	const getContent = async () => {
 		try {
-			const res = await fetch(`http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/chapter?manga=include`, { next: { revalidate: 1 } });
-
-			const data = await res.json();
-			return data.data;
+			const data = await getChapterJoinManga();
+			return data;
 		} catch (err) {
 			console.error(err);
 		}
 	};
 
-	const dataChapter: ChapterType[] = await getContent();
+	const dataChapter: any = await getContent();
 
 	return (
 		<section className="dark p-3 sm:p-5">

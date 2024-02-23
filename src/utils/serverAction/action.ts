@@ -1,5 +1,5 @@
 "use server";
-import { postChapter } from "@/utils/mysql/post/service";
+import { editChapter, postChapter } from "@/utils/mysql/post/service";
 import { redirect } from "next/navigation";
 
 // Prisma
@@ -18,7 +18,6 @@ export async function countChapter(slug: string) {
 	return count;
 }
 
-/* Buat Chapter Add */
 export async function submitHandler(formData: FormData) {
 	const { judulChapter, mangaId, chapter, image }: any = Object.fromEntries(formData);
 
@@ -32,4 +31,18 @@ export async function submitHandler(formData: FormData) {
 	if (res) {
 		redirect(`/admin/chapter`);
 	}
+}
+
+export async function editHandler(formData: FormData) {
+	const { idChapter, judulChapter, mangaId, chapter, image }: any = Object.fromEntries(formData);
+
+	await editChapter({
+		idChapter: Number(idChapter),
+		judulChapter,
+		mangaId: Number(mangaId),
+		chapter: Number(chapter),
+		image,
+	});
+
+	redirect(`/admin/chapter`);
 }

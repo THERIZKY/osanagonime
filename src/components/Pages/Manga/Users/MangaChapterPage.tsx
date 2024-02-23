@@ -1,30 +1,41 @@
-import Image from "next/image";
 import NavigationBottom from "@/components/Layouts/NavigationBottom";
-import { getChapterJoinManga } from "@/utils/mysql/get/services";
+import ImageSlide from "@/components/Layouts/User/ImageSlide";
+import { notFound } from "next/navigation";
 
-const MangaChapterPage = async ({ slug }: any) => {
-	const image: string[] = [""];
+const MangaChapterPage = async ({ slug, chapter }: { slug: string; chapter: string }) => {
+	let image: any = [];
 
-	try {
-		const dataChapter = await getChapterJoinManga();
-		dataChapter.filter((chapter: any) => {
-			if (chapter.mangaRef.slug === slug) {
-				console.log(chapter);
-			}
-		});
-		console.log(dataChapter);
-	} catch (error) {
-		console.error(error);
+	const getImage = async () => {
+		try {
+			const res = await fetch(`http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/chapter?manga=include`, {
+				method: "GET",
+				next: { revalidate: 1 },
+			});
+
+			const data = await res.json();
+
+			const dataChapter = data.data;
+			const findedChapter: any = dataChapter.find((chapterItems: any) => {
+				if (chapterItems.mangaRef.slug === slug && chapterItems.chapter === Number(chapter)) {
+					return chapterItems;
+				}
+			});
+
+			const imageArray = findedChapter.image.split("\n").filter((image: any) => image !== "");
+			return imageArray;
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	image = await getImage();
+	if (image === undefined) {
+		return notFound();
 	}
 
 	return (
 		<>
-			<div className="w-full flex flex-col items-center pb-4">
-				{image &&
-					image.map((item: string, index: number) => {
-						return <Image key={index} src={item} width={1500} height={1500} alt="image for read" className="object-cover" />;
-					})}
-			</div>
+			<ImageSlide image={image} />
 			<NavigationBottom />
 		</>
 	);
