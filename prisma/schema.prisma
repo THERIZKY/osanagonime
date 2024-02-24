@@ -8,55 +8,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model bookmark {
+model Bookmark {
   idMark  Int   @id @default(autoincrement())
   mangaId Int
   userId  Int
-  manga   manga @relation(fields: [mangaId], references: [idManga], map: "Bookmark_mangaId_fkey")
-  users   users @relation(fields: [userId], references: [id], map: "Bookmark_userId_fkey")
+  manga   Manga @relation(fields: [mangaId], references: [idManga])
+  users   Users @relation(fields: [userId], references: [id])
 
   @@index([mangaId], map: "Bookmark_mangaId_fkey")
   @@index([userId], map: "Bookmark_userId_fkey")
 }
 
-model chapter {
+model Chapter {
   idChapter    Int      @id @default(autoincrement())
   mangaId      Int
   judulChapter String   @db.VarChar(255)
   chapter      Int
   published_at DateTime @default(now())
   image        String   @db.LongText
-  manga        manga    @relation(fields: [mangaId], references: [idManga], map: "Chapter_mangaId_fkey")
+  manga        Manga    @relation(fields: [mangaId], references: [idManga])
 
   @@index([mangaId], map: "Chapter_mangaId_fkey")
 }
 
-model genre {
-  idGenre                  Int     @id @default(autoincrement())
-  genre                    String  @db.VarChar(144)
-  manga_manga_genreTogenre manga[] @relation("manga_genreTogenre")
+model Genre {
+  idGenre Int     @id @default(autoincrement())
+  genre   String  @db.VarChar(144)
+  manga   Manga[] @relation("manga_genreTogenre")
 }
 
-model manga {
-  idManga                  Int        @id @default(autoincrement())
-  mangaTitle               String     @db.VarChar(255)
-  cover                    String     @db.VarChar(144)
-  deskripsi                String     @db.LongText
-  published_at             DateTime   @default(now())
-  slug                     String     @db.VarChar(255)
-  genre                    Int        @default(4)
-  bookmark                 bookmark[]
-  chapter                  chapter[]
-  genre_manga_genreTogenre genre      @relation("manga_genreTogenre", fields: [genre], references: [idGenre], map: "Manga_genre_fkey")
+model Manga {
+  idManga      Int        @id @default(autoincrement())
+  mangaTitle   String     @db.VarChar(255)
+  cover        String     @db.VarChar(144)
+  deskripsi    String     @db.LongText
+  published_at DateTime   @default(now())
+  slug         String     @db.VarChar(255)
+  genre        Int        @default(4)
+  bookmark     Bookmark[]
+  chapter      Chapter[]
+  genreRef     Genre      @relation("manga_genreTogenre", fields: [genre], references: [idGenre])
 
   @@index([genre], map: "Manga_genre_fkey")
 }
 
-model users {
+model Users {
   id       Int        @id @default(autoincrement())
   username String     @db.VarChar(144)
   email    String     @db.VarChar(100)
   password String     @db.VarChar(255)
   role     String?    @default("user")
-  bookmark bookmark[]
+  bookmark Bookmark[]
 }
