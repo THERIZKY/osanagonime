@@ -34,6 +34,7 @@
 		"eslint": "8.49.0",
 		"eslint-config-next": "^14.0.4",
 		"firebase": "^10.4.0",
+		"hamburger-react": "^2.5.0",
 		"mysql": "^2.18.1",
 		"next": "^14.0.4",
 		"next-auth": "^4.24.5",

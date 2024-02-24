@@ -1,6 +1,6 @@
 "use client";
 import Swal from "sweetalert2";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 /*------------------------Components ---------------------------------*/
@@ -17,6 +17,7 @@ import ButtonLink from "@/components/Elements/Button/Link/NavigationLink";
 /*--------------------------------------------------------------------- */
 const Register = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const { push } = useRouter();
 
 	const registrationForm = async (formData: FormData) => {
 		// setIsLoading(true);
@@ -66,7 +67,7 @@ const Register = () => {
 							title: "Akun Berhasil Didaftarkan",
 							text: message,
 						}).then(() => {
-							redirect("/login");
+							push("/login");
 						});
 					} else {
 						throw new Error(message);

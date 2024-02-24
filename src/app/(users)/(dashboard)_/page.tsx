@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Dashboard = () => {
 	return (
-		<div className="bg-base-100 min-h-screen">
+		<div className="bg-base-100 min-h-screen overflow-hidden">
 			<Navbar />
 
 			<header className="bg-slate-800 shadow">

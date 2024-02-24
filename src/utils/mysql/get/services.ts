@@ -13,7 +13,6 @@ export async function getAllManga() {
 			},
 		},
 	});
-	console.log(manga);
 	return manga;
 }
 

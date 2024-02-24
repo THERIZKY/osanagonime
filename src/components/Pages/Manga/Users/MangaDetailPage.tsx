@@ -1,22 +1,26 @@
+import { getMangaJoinChapter } from "@/utils/mysql/get/services";
 import Image from "next/image";
 import Link from "next/link";
 
 const MangaDetailPage = async ({ slug }: any) => {
+	let findedManga: any = [];
+
 	// const manga = await getMangaJoinChapter();
 	const res = await fetch(`http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/manga?chapter=include`, {
 		method: "GET",
 		headers: { "Content-Type": "application/json" },
-		next: { revalidate: 1 },
+		next: { revalidate: 60 },
 	});
 
-	const mangaJSON = await res.json();
-	const manga = mangaJSON.data;
-
-	const findedManga = manga.find((mangaItems: any) => {
-		if (mangaItems.slug === slug) {
-			return mangaItems;
-		}
-	});
+	if (res) {
+		const mangaJSON = await res.json();
+		const manga = mangaJSON.data;
+		findedManga = manga.find((mangaItems: any) => {
+			if (mangaItems.slug === slug) {
+				return mangaItems;
+			}
+		});
+	}
 
 	const dataManga: any = findedManga;
 
@@ -25,7 +29,7 @@ const MangaDetailPage = async ({ slug }: any) => {
 		<>
 			<div className="pb-4">
 				{dataManga && dataManga.chapters && (
-					<div className="max-h-full" style={{ backgroundImage: `url(${imgUrl})` }}>
+					<div className="max-h-full bg-slate-900">
 						<div className={`hero min-h-[100%] overflow-hidden bg-slate-800/75`}>
 							<div className="hero-content flex-col lg:flex-row">
 								<Image width={200} height={200} src={dataManga.cover} className="max-w-sm rounded-lg shadow-2xl" alt="" />

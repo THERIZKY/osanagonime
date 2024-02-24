@@ -8,8 +8,6 @@ const prisma = new PrismaClient();
 
 export const postManga = async (dataManga: any) => {
 	try {
-		console.log(dataManga);
-
 		const manga = await prisma.manga.create({
 			data: {
 				cover: dataManga?.mangaCover,
@@ -29,7 +27,6 @@ export const postManga = async (dataManga: any) => {
 					},
 				});
 
-				console.log(genre);
 				// Jika genre tidak ditemukan, tambahkan genre baru
 				if (!genre) {
 					genre = await prisma.genre.create({
@@ -54,8 +51,6 @@ export const postManga = async (dataManga: any) => {
 						},
 					},
 				});
-
-				console.log(idgenre);
 			})
 		);
 

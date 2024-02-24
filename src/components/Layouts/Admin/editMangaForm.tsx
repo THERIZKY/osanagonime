@@ -14,8 +14,6 @@ const EditMangaForm = ({ selectedManga, id }: any) => {
 
 		const { title, cover, deskripsi }: any = Object.fromEntries(formData);
 
-		console.log(title, cover, deskripsi);
-
 		const slug = slugify(title, { lower: true });
 
 		if (title && cover && deskripsi) {
