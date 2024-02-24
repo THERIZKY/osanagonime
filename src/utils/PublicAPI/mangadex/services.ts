@@ -1,6 +1,5 @@
-// import axios from "axios";
 const axios = require("axios");
-import slugify from "slugify";
+const slugify = require("slugify");
 
 interface MangaData {
 	id: string;
@@ -40,7 +39,10 @@ export async function getMangaCover(title: string) {
 		});
 
 		// Ngambil Data Covers Dari API
-		const responses = await axios.get(`https://api.mangadex.org/cover/${coverID}`);
+		const responses = await axios({
+			methdod: "GET",
+			url: `https://api.mangadex.org/cover/${coverID}`,
+		});
 		const coverName = responses.data.data.attributes.fileName;
 
 		const coverLink = `https://uploads.mangadex.org/covers/${mangaId}/${coverName}`;

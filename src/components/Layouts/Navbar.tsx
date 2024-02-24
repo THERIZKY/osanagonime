@@ -5,15 +5,13 @@ import Heading from "../Elements/Text/Heading";
 import FormContainer from "../Elements/Form/FormContainer";
 import FormInput from "../Elements/Form/Input";
 import Content from "../Elements/Content";
-import Link from "next/link";
 
 const Navbar = () => {
 	return (
 		<NavbarContainer>
 			<div className="flex-1 ">
-				<ButtonLink href="/" className="btn btn-ghost text-base md:text-xl mr-5">
-					<Image src="/img/osanagoTrans.png" width={200} height={200} alt="Logo" />
-					{/* <h1 className="text-3xl">OsanagoManga</h1> */}
+				<ButtonLink href="/" className="btn btn-ghost text-base md:text-xl">
+					<Heading level={1}>OsanagoManga</Heading>
 				</ButtonLink>
 				<ul className="flex gap-[8rem] w-full">
 					<li>
@@ -28,7 +26,7 @@ const Navbar = () => {
 					</li>
 				</ul>
 			</div>
-			<div className="flex-none gap-2">
+			<Content className="flex-none gap-2">
 				<FormContainer className="input-group">
 					<FormInput type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
 				</FormContainer>
@@ -55,7 +53,7 @@ const Navbar = () => {
 						</li>
 					</ul>
 				</div> */}
-			</div>
+			</Content>
 		</NavbarContainer>
 	);
 };

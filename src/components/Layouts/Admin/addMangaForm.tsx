@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/app/(auth)/loading";
 import Button from "@/components/Elements/Button/Buttons/Button";
 import axios from "axios";
 import { useRouter } from "next/navigation";

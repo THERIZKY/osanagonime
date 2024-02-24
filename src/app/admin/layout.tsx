@@ -1,4 +1,7 @@
-import { Fragment } from "react";
+"use client";
+import { Fragment, useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import Sidebar from "@/components/Layouts/Sidebar";
 import AdminContainer from "@/components/Templates/Admin/AdminContainer";
 
@@ -7,6 +10,11 @@ function AdminLayout({
 }: {
 	children: React.ReactNode;
 }) {
+	// AOS init
+	useEffect(() => {
+		AOS.init();
+	}, []);
+
 	return (
 		<Fragment>
 			<Sidebar />
