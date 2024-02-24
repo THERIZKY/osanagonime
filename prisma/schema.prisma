@@ -46,7 +46,7 @@ model Manga {
   slug         String     @db.VarChar(255)
   genre        Int        @default(4)
   bookmark     Bookmark[]
-  chapter      Chapter[]
+  chapters     Chapter[]
   genreRef     Genre      @relation("manga_genreTogenre", fields: [genre], references: [idGenre])
 
   @@index([genre], map: "Manga_genre_fkey")
