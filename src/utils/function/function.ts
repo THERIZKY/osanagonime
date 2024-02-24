@@ -56,7 +56,6 @@ const deleteHandler = async (id: number, callback: Function) => {
 };
 
 export const confirmHandler = async (id: number, callback: Function) => {
-	console.log(id);
 	Swal.fire({
 		title: "Are you sure?",
 		text: "You won't be able to revert this!",

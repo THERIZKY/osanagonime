@@ -78,7 +78,7 @@ export const postChapter = async (dataChapter: any) => {
 
 		return chapterPost.idChapter;
 	} catch (err) {
-		console.log("Something Went Wrong : ", err);
+		console.error("Something Went Wrong : ", err);
 	}
 };
 
@@ -132,7 +132,7 @@ export const dropAllChapterByMangaId = async (id: string) => {
 
 		return { status: 404, message: "Id Not Found!" };
 	} catch (err) {
-		console.log("Something Went Wrong : ", err);
+		console.error("Something Went Wrong : ", err);
 	}
 };
 
