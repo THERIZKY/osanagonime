@@ -9,14 +9,11 @@ datasource db {
 }
 
 model Bookmark {
-  idMark  Int   @id @default(autoincrement())
-  mangaId Int
-  userId  Int
-  manga   Manga @relation(fields: [mangaId], references: [idManga])
-  users   Users @relation(fields: [userId], references: [id])
-
-  @@index([mangaId], map: "Bookmark_mangaId_fkey")
-  @@index([userId], map: "Bookmark_userId_fkey")
+  idMark   Int   @id @default(autoincrement())
+  mangaId  Int
+  userId   Int
+  mangaRef Manga @relation(fields: [mangaId], references: [idManga])
+  usersRef Users @relation(fields: [userId], references: [id])
 }
 
 model Chapter {
@@ -26,15 +23,13 @@ model Chapter {
   chapter      Int
   published_at DateTime @default(now())
   image        String   @db.LongText
-  manga        Manga    @relation(fields: [mangaId], references: [idManga])
-
-  @@index([mangaId], map: "Chapter_mangaId_fkey")
+  mangaRef     Manga    @relation(fields: [mangaId], references: [idManga])
 }
 
 model Genre {
   idGenre Int     @id @default(autoincrement())
   genre   String  @db.VarChar(144)
-  manga   Manga[] @relation("manga_genreTogenre")
+  Manga   Manga[]
 }
 
 model Manga {
@@ -45,11 +40,9 @@ model Manga {
   published_at DateTime   @default(now())
   slug         String     @db.VarChar(255)
   genre        Int        @default(4)
+  genreRef     Genre      @relation(fields: [genre], references: [idGenre])
   bookmark     Bookmark[]
   chapters     Chapter[]
-  genreRef     Genre      @relation("manga_genreTogenre", fields: [genre], references: [idGenre])
-
-  @@index([genre], map: "Manga_genre_fkey")
 }
 
 model Users {
