@@ -5,6 +5,7 @@ import Heading from "../Elements/Text/Heading";
 import FormContainer from "../Elements/Form/FormContainer";
 import FormInput from "../Elements/Form/Input";
 import Content from "../Elements/Content";
+import Link from "next/link";
 
 const Navbar = () => {
 	return (
