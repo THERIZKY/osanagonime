@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 				<title>OsanagoManga</title>
 				<link rel="icon" href="/img/osanagoTransparant.png" />
-				<meta name="description" content="Baca Manga Dan Nonton Anime dan jadilah Wibu yang baik :v" />
+				<meta name="description" content="Baca Manga Dan Nonton Anime dan jadilah Wibu yang baik" />
 			</head>
 			<body className={inter.className}>
 				<SessionProvider>{children}</SessionProvider>
