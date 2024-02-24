@@ -28,7 +28,7 @@ const AdminMangaPage = ({ dataManga }: any) => {
 			</thead>
 			<tbody>
 				{dataManga &&
-					dataManga.data.map((manga: any, index: number) => (
+					dataManga.map((manga: any, index: number) => (
 						<tr key={index}>
 							<th>
 								<label>
