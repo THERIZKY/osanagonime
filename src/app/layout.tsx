@@ -1,6 +1,5 @@
 "use client";
 import "./globals.css";
-// import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "animate.css";
 import { SessionProvider } from "next-auth/react";

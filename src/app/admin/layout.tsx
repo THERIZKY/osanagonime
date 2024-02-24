@@ -1,4 +1,3 @@
-"use client";
 import { Fragment } from "react";
 import Sidebar from "@/components/Layouts/Sidebar";
 import AdminContainer from "@/components/Templates/Admin/AdminContainer";
