@@ -26,7 +26,11 @@ const deleteManga = async (id: number) => {
 
 const deleteHandler = async (id: number, callback: Function) => {
 	// Ngecek Dlu Apakah Manga Ini Punya Chapter Yang Terhubung
-	const res = await fetch(`/api/chapter?idManga=${id}`);
+	const res = await fetch(`/api/chapter?idManga=${id}`, {
+		method: "GET",
+		headers: { "Content-Type": "application/json" },
+		cache: "no-store",
+	});
 
 	if (res.ok) {
 		const chapterExists = await res.json();

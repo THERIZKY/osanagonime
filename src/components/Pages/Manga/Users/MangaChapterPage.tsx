@@ -9,6 +9,7 @@ const MangaChapterPage = async ({ slug, chapter }: { slug: string; chapter: stri
 		try {
 			const res = await fetch(`http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/chapter?manga=include`, {
 				method: "GET",
+				headers: { "Content-Type": "application/json" },
 				next: { revalidate: 1 },
 			});
 

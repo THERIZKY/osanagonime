@@ -3,7 +3,11 @@ import Link from "next/link";
 
 const MangaDetailPage = async ({ slug }: any) => {
 	// const manga = await getMangaJoinChapter();
-	const res = await fetch(`http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/manga?chapter=include`, { method: "GET", next: { revalidate: 1 } });
+	const res = await fetch(`http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/manga?chapter=include`, {
+		method: "GET",
+		headers: { "Content-Type": "application/json" },
+		next: { revalidate: 1 },
+	});
 
 	const mangaJSON = await res.json();
 	const manga = mangaJSON.data;

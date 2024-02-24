@@ -9,6 +9,7 @@ const AdminManga = async () => {
 		try {
 			const res = await fetch(`http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/manga`, {
 				method: "GET",
+				headers: { "Content-Type": "application/json" },
 				next: { revalidate: 1 },
 			});
 
