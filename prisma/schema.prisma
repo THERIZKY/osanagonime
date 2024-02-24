@@ -10,13 +10,22 @@ datasource db {
 }
 
 model Manga {
-  idManga      Int       @id @default(autoincrement())
-  mangaTitle   String    @db.VarChar(255)
-  cover        String    @db.VarChar(144)
-  deskripsi    String    @db.LongText
-  published_at DateTime  @default(now())
-  slug         String    @db.VarChar(255)
-  chapters     Chapter[]
+  idManga      Int      @id @default(autoincrement())
+  mangaTitle   String   @db.VarChar(255)
+  cover        String   @db.VarChar(144)
+  deskripsi    String   @db.LongText
+  published_at DateTime @default(now())
+  slug         String   @db.VarChar(255)
+
+  // Ini Ngatur Genre Di Manga
+  genre    Int   @default(4)
+  genreRef Genre @relation(fields: [genre], references: [idGenre])
+
+  // Ngatur Chapter
+  chapters Chapter[]
+
+  // Bookmartk
+  bookmark Bookmark[]
 }
 
 model Users {
@@ -25,6 +34,8 @@ model Users {
   email    String  @db.VarChar(100)
   password String  @db.VarChar(255)
   role     String? @default("user")
+
+  bookmark Bookmark[]
 }
 
 model Chapter {
@@ -37,4 +48,18 @@ model Chapter {
   mangaRef     Manga    @relation(fields: [mangaId], references: [idManga])
 
   @@index([mangaId], map: "Chapter_mangaId_fkey")
+}
+
+model Bookmark {
+  idMark   Int   @id @default(autoincrement())
+  mangaId  Int
+  userId   Int
+  mangaRef Manga @relation(fields: [mangaId], references: [idManga])
+  userRef  Users @relation(fields: [userId], references: [id])
+}
+
+model Genre {
+  idGenre Int     @id @default(autoincrement())
+  genre   String  @db.VarChar(144)
+  Manga   Manga[]
 }

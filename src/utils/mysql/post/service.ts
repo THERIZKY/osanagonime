@@ -12,6 +12,7 @@ export const postManga = async (dataManga: any) => {
 				mangaTitle: dataManga?.mangaTitle,
 				deskripsi: dataManga?.mangaDescription,
 				slug: dataManga?.mangaSlug,
+				// genre: 5,
 			},
 		});
 
@@ -32,6 +33,7 @@ export const postEditManga = async (dataManga: any) => {
 				mangaTitle: dataManga?.title,
 				deskripsi: dataManga?.deskripsi,
 				slug: dataManga?.slug,
+				genre: dataManga?.genres,
 			},
 		});
 
