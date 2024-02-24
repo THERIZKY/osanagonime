@@ -2,10 +2,14 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+// import prisma from "@/utils/prisma/prisma";
+
 /* -------------Post Manga To Database---------------- */
 
 export const postManga = async (dataManga: any) => {
 	try {
+		console.log(dataManga);
+
 		const manga = await prisma.manga.create({
 			data: {
 				cover: dataManga?.mangaCover,
@@ -15,7 +19,47 @@ export const postManga = async (dataManga: any) => {
 			},
 		});
 
-		return { sucess: 200, message: "success" };
+		// Gunakan Promise.all untuk menunggu semua operasi selesai sebelum melanjutkan
+		await Promise.all(
+			dataManga.mangaGenre.map(async (genreName: string) => {
+				// Cari genre dalam database menggunakan Prisma
+				let genre: any = await prisma.genre.findUnique({
+					where: {
+						genre: genreName,
+					},
+				});
+
+				console.log(genre);
+				// Jika genre tidak ditemukan, tambahkan genre baru
+				if (!genre) {
+					genre = await prisma.genre.create({
+						data: {
+							genre: genreName,
+						},
+					});
+				}
+
+				// Tambahkan relasi antara manga dan genre
+				const idgenre = await prisma.manga_Genre.create({
+					data: {
+						mangaRef: {
+							connect: {
+								idManga: manga.idManga,
+							},
+						},
+						genreRef: {
+							connect: {
+								idGenre: genre.idGenre,
+							},
+						},
+					},
+				});
+
+				console.log(idgenre);
+			})
+		);
+
+		return { sucess: 200, isSuccess: true, message: "success" };
 	} catch (err) {
 		console.error("Error Creating Manga", err);
 	}

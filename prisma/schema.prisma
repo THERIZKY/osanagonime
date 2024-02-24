@@ -27,22 +27,23 @@ model Chapter {
 }
 
 model Genre {
-  idGenre Int     @id @default(autoincrement())
-  genre   String  @db.VarChar(144)
-  Manga   Manga[]
+  idGenre     Int           @id @default(autoincrement())
+  genre       String        @db.VarChar(144)
+  Manga_Genre Manga_Genre[]
+
+  @@unique([genre])
 }
 
 model Manga {
-  idManga      Int        @id @default(autoincrement())
-  mangaTitle   String     @db.VarChar(255)
-  cover        String     @db.VarChar(144)
-  deskripsi    String     @db.LongText
-  published_at DateTime   @default(now())
-  slug         String     @db.VarChar(255)
-  genre        Int        @default(4)
-  genreRef     Genre      @relation(fields: [genre], references: [idGenre])
+  idManga      Int           @id @default(autoincrement())
+  mangaTitle   String        @db.VarChar(255)
+  cover        String        @db.VarChar(144)
+  deskripsi    String        @db.LongText
+  published_at DateTime      @default(now())
+  slug         String        @db.VarChar(255)
   bookmark     Bookmark[]
   chapters     Chapter[]
+  Manga_Genre  Manga_Genre[]
 }
 
 model Users {
@@ -52,4 +53,13 @@ model Users {
   password String     @db.VarChar(255)
   role     String?    @default("user")
   bookmark Bookmark[]
+}
+
+model Manga_Genre {
+  mangaId  Int
+  GenreId  Int
+  mangaRef Manga @relation(fields: [mangaId], references: [idManga])
+  genreRef Genre @relation(fields: [GenreId], references: [idGenre])
+
+  @@unique([GenreId, mangaId])
 }

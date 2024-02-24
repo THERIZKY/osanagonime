@@ -65,6 +65,21 @@ export async function getMangaDescription(title: string) {
 	}
 }
 
+export async function getMangaGenres(title: string) {
+	try {
+		const selectedManga = await getDataManga(title);
+
+		const tags = selectedManga[0].attributes.tags;
+		const genre = tags.map((item: any) => {
+			return item.attributes.name.en;
+		});
+
+		return genre;
+	} catch (err) {
+		console.error(err);
+	}
+}
+
 export async function getMangaDetails(title: string) {
 	try {
 		const selectedManga = await getDataManga(title);
@@ -72,6 +87,7 @@ export async function getMangaDetails(title: string) {
 		const mangaTitle = selectedManga[0].attributes.title.en;
 		const mangaCover = await getMangaCover(title);
 		const mangaDescription = (await getMangaDescription(title)) || "Manga Tidak Memiliki Deskripsi";
+		const mangaGenre = (await getMangaGenres(title)) || "Manga Tidak Memiliki Genre";
 		const mangaSlug = slugify(mangaTitle, { lower: true });
 
 		return {
@@ -79,6 +95,7 @@ export async function getMangaDetails(title: string) {
 			mangaCover,
 			mangaDescription,
 			mangaSlug,
+			mangaGenre,
 		};
 	} catch (err) {
 		console.error(err);

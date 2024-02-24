@@ -6,10 +6,14 @@ const prisma = new PrismaClient();
 export async function getAllManga() {
 	const manga = await prisma.manga.findMany({
 		include: {
-			genreRef: true,
+			Manga_Genre: {
+				select: {
+					genreRef: true,
+				},
+			},
 		},
 	});
-
+	console.log(manga);
 	return manga;
 }
 

@@ -1,10 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import "@/utils/firebase/read/services";
-import { getMangaDetails } from "@/utils/PublicAPI/mangadex/services";
-import { addDoc, collection } from "firebase/firestore";
-import db from "@/utils/firebase/setup";
-import { getNextCounter } from "@/utils/firebase/update/services";
-import { createManga } from "@/utils/firebase/create/services";
+import { getMangaDetails, getMangaGenres } from "@/utils/PublicAPI/mangadex/services";
 import { postManga } from "@/utils/mysql/post/service";
 
 interface dataManga {
