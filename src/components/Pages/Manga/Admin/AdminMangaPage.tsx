@@ -22,12 +22,13 @@ const AdminMangaPage = ({ dataManga }: any) => {
 					</th>
 					<th>Judul Manga</th>
 					<th>Deskripsi</th>
+					<th>Genre</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				{dataManga &&
-					dataManga.data.map((manga: any, index: number) => (
+					dataManga.map((manga: any, index: number) => (
 						<tr key={index}>
 							<th>
 								<label>
@@ -36,15 +37,16 @@ const AdminMangaPage = ({ dataManga }: any) => {
 							</th>
 							<td>
 								<div className="flex items-center gap-3 justify-start">
-									<div className="w-20 h-40">
+									<div className="w-20 h-40 ">
 										<Image width={200} height={200} priority src={manga.cover} alt="Manga Cover" />
 									</div>
 									<div>
-										<div className="font-bold">{manga.mangaTitle}</div>
+										<div className="font-bold w-[8rem]">{manga.mangaTitle}</div>
 									</div>
 								</div>
 							</td>
-							<td className="w-2/3">{manga.deskripsi}</td>
+							<td className="w-2/4">{manga.deskripsi}</td>
+							<td className="1/4">{manga.genreRef.genre}</td>
 							<th>
 								<div className="flex flex-col gap-5">
 									<Button

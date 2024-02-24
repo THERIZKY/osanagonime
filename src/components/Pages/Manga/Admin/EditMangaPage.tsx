@@ -1,5 +1,6 @@
 import EditMangaForm from "@/components/Layouts/Admin/editMangaForm";
 import Heading from "@/components/Elements/Text/Heading";
+import { getMangaById } from "@/utils/mysql/get/services";
 
 interface MangaData {
 	data: {
@@ -13,9 +14,7 @@ interface MangaData {
 }
 
 const EditDataMangaPage = async ({ id }: { id: string }) => {
-	const res = await fetch(`http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/manga?idManga=` + id, { method: "GET" });
-
-	const selectedManga: MangaData = await res.json();
+	const dataManga: any = await getMangaById(id);
 
 	return (
 		<>
@@ -24,7 +23,7 @@ const EditDataMangaPage = async ({ id }: { id: string }) => {
 					Edit Data Manga
 				</Heading>
 				<div className="flex justify-center">
-					<EditMangaForm selectedManga={selectedManga.data} id={id} />
+					<EditMangaForm selectedManga={dataManga} id={id} />
 				</div>
 			</div>
 		</>

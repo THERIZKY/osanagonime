@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import Container from "@/components/Elements/Container";
 
-const Animelist = () => {
+const GenrePage = () => {
 	const { back } = useRouter();
 
 	return (
@@ -20,4 +20,4 @@ const Animelist = () => {
 	);
 };
 
-export default Animelist;
+export default GenrePage;

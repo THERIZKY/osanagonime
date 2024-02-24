@@ -22,7 +22,7 @@ const Navbar = () => {
 						</Link>
 					</li>
 					<li>
-						<Link href={"/manga"} className="btn btn-ghost btn-md rounded-btn">
+						<Link href={"/manga/genre"} className="btn btn-ghost btn-md rounded-btn">
 							<h1>Genre Manga</h1>
 						</Link>
 					</li>

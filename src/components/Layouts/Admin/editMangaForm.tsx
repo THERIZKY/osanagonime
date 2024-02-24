@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import slugify from "slugify";
 import Button from "@/components/Elements/Button/Buttons/Button";
+import { revalidatePath } from "next/cache";
 
 const EditMangaForm = ({ selectedManga, id }: any) => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -22,7 +23,10 @@ const EditMangaForm = ({ selectedManga, id }: any) => {
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ id, title, cover, deskripsi, slug }),
 			})
-				.then(() => push("/admin/manga"))
+				.then(() => {
+					push("/admin/manga");
+					revalidatePath("/admin/manga");
+				})
 				.catch((err) => console.error(err));
 		}
 	};

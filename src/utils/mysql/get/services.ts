@@ -4,7 +4,11 @@ const prisma = new PrismaClient();
 
 /* -------------Get Manga From Database---------------- */
 export async function getAllManga() {
-	const manga = await prisma.manga.findMany();
+	const manga = await prisma.manga.findMany({
+		include: {
+			genreRef: true,
+		},
+	});
 
 	return manga;
 }
@@ -38,6 +42,7 @@ export async function getMangaJoinChapter() {
 	});
 	return manga;
 }
+
 /* ---------------------------------------------------- */
 
 /* -------------Get Chapter From Database---------------- */

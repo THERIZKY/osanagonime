@@ -16,7 +16,7 @@ const MangaDetailPage = async ({ slug }: any) => {
 
 	const dataManga: any = findedManga;
 
-	const imgUrl = decodeURIComponent(dataManga.cover);
+	const imgUrl = decodeURI(dataManga?.cover);
 	return (
 		<>
 			<div className="pb-4">
