@@ -8,16 +8,6 @@ import { getAllManga } from "@/utils/mysql/get/services";
 const AdminManga = async () => {
 	const getDataManga = async () => {
 		try {
-			// const res = await fetch(`http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/manga`, {
-			// 	method: "GET",
-			// 	headers: { "Content-Type": "application/json" },
-			// 	next: { revalidate: 1 },
-			// });
-
-			// if (!res.ok) {
-			// 	throw new Error("Failed to fetch manga data");
-			// }
-
 			return await getAllManga();
 		} catch (error) {
 			console.error(error);
