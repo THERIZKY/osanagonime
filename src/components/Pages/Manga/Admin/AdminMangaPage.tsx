@@ -48,7 +48,12 @@ const AdminMangaPage = ({ dataManga }: any) => {
 							<td className="w-2/4">{manga.deskripsi}</td>
 							<td>
 								<div className="flex flex-wrap gap-1 justify-evenly items-center h-40">
-									{manga.Manga_Genre && manga.Manga_Genre.map((genre: any) => <div className="badge badge-primary badge-lg">{genre.genreRef.genre}</div>)}
+									{manga.Manga_Genre &&
+										manga.Manga_Genre.map((genre: any, index: number) => (
+											<div className="badge badge-primary badge-lg" key={index}>
+												{genre.genreRef.genre}
+											</div>
+										))}
 								</div>
 							</td>
 							<td className="w-52">
