@@ -1,30 +1,36 @@
 import { getMangaJoinChapter } from "@/utils/mysql/get/services";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 const MangaDetailPage = async ({ slug }: any) => {
 	let findedManga: any = [];
 
-	// const manga = await getMangaJoinChapter();
-	const res = await fetch(`http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/manga?chapter=include`, {
-		method: "GET",
-		headers: { "Content-Type": "application/json" },
-		next: { revalidate: 60 },
-	});
-
-	if (res) {
-		const mangaJSON = await res.json();
-		const manga = mangaJSON.data;
-		findedManga = manga.find((mangaItems: any) => {
-			if (mangaItems.slug === slug) {
-				return mangaItems;
-			}
+	try {
+		// const manga = await getMangaJoinChapter();
+		const res = await fetch(`http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/manga?chapter=include`, {
+			method: "GET",
+			headers: { "Content-Type": "application/json" },
+			next: { revalidate: 60 },
 		});
+
+		if (res) {
+			const mangaJSON = await res.json();
+			const manga = mangaJSON.data;
+			findedManga = manga.find((mangaItems: any) => {
+				if (mangaItems.slug === slug) {
+					return mangaItems;
+				}
+			});
+		}
+	} catch (err) {
+		console.error(err);
 	}
 
 	const dataManga: any = findedManga;
+	if (!dataManga) notFound();
 
-	const imgUrl = decodeURI(dataManga?.cover);
+	// const imgUrl = decodeURI(dataManga?.cover);
 	return (
 		<>
 			<div className="pb-4">

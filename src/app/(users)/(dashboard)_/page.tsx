@@ -4,8 +4,6 @@ import Image from "next/image";
 const Dashboard = () => {
 	return (
 		<div className="bg-base-100 min-h-screen overflow-hidden">
-			<Navbar />
-
 			<header className="bg-slate-800 shadow">
 				<div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
 					<h1 className="text-3xl font-bold tracking-tight text-gray-300">Dashboard</h1>
