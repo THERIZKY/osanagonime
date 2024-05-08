@@ -1,65 +1,34 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["relationJoins"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
-model Bookmark {
-  idMark   Int   @id @default(autoincrement())
-  mangaId  Int
-  userId   Int
-  mangaRef Manga @relation(fields: [mangaId], references: [idManga])
-  usersRef Users @relation(fields: [userId], references: [id])
-}
-
 model Chapter {
-  idChapter    Int      @id @default(autoincrement())
-  mangaId      Int
-  judulChapter String   @db.VarChar(255)
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  JudulChapter String
   chapter      Int
-  published_at DateTime @default(now())
-  image        String   @db.LongText
-  mangaRef     Manga    @relation(fields: [mangaId], references: [idManga])
+  idManga      String
+  image        String[]
 }
 
 model Genre {
-  idGenre     Int           @id @default(autoincrement())
-  genre       String        @db.VarChar(144)
-  Manga_Genre Manga_Genre[]
-
-  @@unique([genre])
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 }
 
 model Manga {
-  idManga      Int           @id @default(autoincrement())
-  mangaTitle   String        @db.VarChar(255)
-  cover        String        @db.VarChar(144)
-  deskripsi    String        @db.LongText
-  published_at DateTime      @default(now())
-  slug         String        @db.VarChar(255)
-  bookmark     Bookmark[]
-  chapters     Chapter[]
-  Manga_Genre  Manga_Genre[]
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  cover        String
+  deskripsi    String
+  genre        String[]
+  mangaTitle   String
+  published_at DateTime @db.Date
+  slug         String
 }
 
-model Users {
-  id       Int        @id @default(autoincrement())
-  username String     @db.VarChar(144)
-  email    String     @db.VarChar(100)
-  password String     @db.VarChar(255)
-  role     String?    @default("user")
-  bookmark Bookmark[]
-}
-
-model Manga_Genre {
-  mangaId  Int
-  GenreId  Int
-  mangaRef Manga @relation(fields: [mangaId], references: [idManga])
-  genreRef Genre @relation(fields: [GenreId], references: [idGenre])
-
-  @@unique([GenreId, mangaId])
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 }
