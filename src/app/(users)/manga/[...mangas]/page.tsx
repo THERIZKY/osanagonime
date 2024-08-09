@@ -1,8 +1,8 @@
 import MangaDetailPage from "@/components/Pages/Manga/Users/MangaDetailPage";
 import { notFound } from "next/navigation";
 import MangaReadPage from "@/components/Pages/Manga/Users/MangaReadPage";
-import { getMangaBySlug } from "@/utils/db/service";
 import ProgressPage from "@/components/Pages/onProgressPage";
+import { SelectedManga } from "@/utils/controller/function";
 
 const mangaFilterPage = async ({
     params,
@@ -13,7 +13,7 @@ const mangaFilterPage = async ({
     if (params.mangas[0] === "genre") return <ProgressPage />;
 
     //Pengkondisian Semisal Data Manga Kosong
-    const selectedManga = await getMangaBySlug(params.mangas[0]);
+    const selectedManga = await SelectedManga(params.mangas[0]);
     if (!selectedManga) return notFound();
 
     // Seleksi Page yang nampil
@@ -22,7 +22,7 @@ const mangaFilterPage = async ({
     } else {
         return (
             <MangaReadPage
-                dataManga={selectedManga}
+                idManga={selectedManga.id}
                 chapter={Number(params.mangas[1])}
             />
         );

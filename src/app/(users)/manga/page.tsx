@@ -1,5 +1,5 @@
 import Cards from "@/components/Elements/Card";
-import { getAllManga } from "@/utils/db/service";
+import { getAllManga } from "@/utils/model/mangaModel";
 
 interface dataMangaProps {
     id: string;

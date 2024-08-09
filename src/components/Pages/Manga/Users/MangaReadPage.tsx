@@ -1,29 +1,20 @@
 import NavigationBottom from "@/components/Layouts/MangaReadingNavigation/NavigationBottom";
 import ImageSlide from "@/components/Layouts/User/MangaImageRead";
-import { getDetailedChapterForRead } from "@/utils/db/service";
+import { SelectedChapter } from "@/utils/controller/function";
+import { getDetailedChapterForRead } from "@/utils/model/chapterModel";
 import { notFound, redirect } from "next/navigation";
 
-interface dataMangaProps {
-    id: string;
-    cover: string;
-    deskripsi: string;
-    mangaTitle: string;
-    genre: string[];
-    published_at: string | Date;
-    slug: string;
-}
-
 const MangaReadPage = async ({
-    dataManga,
+    idManga,
     chapter,
 }: {
-    dataManga?: dataMangaProps;
-    chapter?: Number;
+    idManga?: string;
+    chapter?: number;
 }) => {
+    const maxChapter = 10;
+
     // Ngambil Gambar Buat ditampilin
     const getChaptersImage = async () => {
-        const idManga = dataManga?.id;
-
         //Buat Pengambilan Data Chapter
         const Chapter = await getDetailedChapterForRead(
             String(idManga),
@@ -33,7 +24,9 @@ const MangaReadPage = async ({
         return Chapter?.image;
     };
 
-    const maxChapter = 10;
+    const testing = SelectedChapter(String(idManga), Number(chapter));
+
+    console.log(testing)
 
     const image = await getChaptersImage();
 
@@ -46,7 +39,7 @@ const MangaReadPage = async ({
             </>
         );
     } else {
-        redirect;
+        redirect("/manga");
     }
 };
 

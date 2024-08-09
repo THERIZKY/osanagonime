@@ -8,8 +8,6 @@ const RegisterPage = async () => {
         "use server";
         const { username, email, password, confirm_password } =
             Object.fromEntries(formData.entries());
-
-        console.log({ username, email, password, confirm_password });
     };
 
     return (
