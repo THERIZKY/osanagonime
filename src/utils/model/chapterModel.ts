@@ -1,4 +1,4 @@
-import prisma from "./prisma";
+import prisma from "../../../prisma/prisma";
 
 export const getAllChapter = async () => {
     const data = prisma.chapter.findMany();
@@ -6,13 +6,10 @@ export const getAllChapter = async () => {
     return data;
 };
 
-export const getDetailedChapterForRead = (
-    id: string,
-    chapterNumber: number
-) => {
+export const getDetailedChapterForRead = (id: number, chapterNumber: number) => {
     const dataChapter = prisma.chapter.findFirst({
         where: {
-            idManga: {
+            mangaId: {
                 equals: id,
             },
             chapter: {

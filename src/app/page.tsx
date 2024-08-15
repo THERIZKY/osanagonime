@@ -1,5 +1,5 @@
 "use client";
-import NavbarHome from "@/components/Layouts/NavbarHome";
+import NavbarHome from "@/components/Layouts/HomePage";
 import Image from "next/image";
 
 export default function Home() {

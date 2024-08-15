@@ -1,8 +1,9 @@
-import prisma from "./prisma";
+import prisma from "../../../prisma/prisma";
 
 /*-------------------Get Data---------------------- */
-export const getAllManga = () => {
-    const data = prisma.manga.findMany();
+export const getAllManga = async () => {
+    const data = await prisma.manga.findMany();
+
     return data;
 };
 

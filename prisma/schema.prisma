@@ -3,32 +3,26 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Chapter {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  JudulChapter String
+  id           Int      @id @unique @default(autoincrement())
+  judulChapter String
   chapter      Int
-  idManga      String
   image        String[]
-}
-
-model Genre {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  mangaId      Int
+  Manga        Manga    @relation(fields: [mangaId], references: [id])
 }
 
 model Manga {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  cover        String
-  deskripsi    String
-  genre        String[]
-  mangaTitle   String
-  published_at DateTime @db.Date
-  slug         String
-}
-
-model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id        Int       @id @unique @default(autoincrement())
+  judul     String
+  slug      String
+  deskripsi String
+  cover     String
+  release   DateTime  @default(now())
+  Chapter   Chapter[]
 }

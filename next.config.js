@@ -10,6 +10,18 @@ const nextConfig = {
             },
             {
                 protocol: "https",
+                hostname: "mangadex.org",
+                port: "",
+                pathname: "/**",
+            },
+            {
+                protocol: "https",
+                hostname: "cmdxd98sb0x3yprd.mangadex.network",
+                port: "",
+                pathname: "/**",
+            },
+            {
+                protocol: "https",
                 hostname: "i.ibb.co",
                 port: "",
                 pathname: "/**",

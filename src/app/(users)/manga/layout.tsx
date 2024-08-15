@@ -3,11 +3,7 @@ import Footer from "@/components/Layouts/Footer";
 import Navbar from "@/components/Layouts/Navbar";
 import { usePathname } from "next/navigation";
 
-export default function MangaListLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+export default function MangaListLayout({ children }: { children: React.ReactNode }) {
     const isChapterRoute = usePathname().split("/").length > 3;
     const isGenreRoute = usePathname() === "/manga/genre";
 

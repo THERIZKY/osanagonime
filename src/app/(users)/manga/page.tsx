@@ -2,13 +2,13 @@ import Cards from "@/components/Elements/Card";
 import { getAllManga } from "@/utils/model/mangaModel";
 
 interface dataMangaProps {
-    id: string;
-    cover: string;
-    deskripsi: string;
-    mangaTitle: string;
-    genre: string[];
-    published_at: string | Date;
+    id: number;
+    judul: string;
     slug: string;
+    deskripsi: string;
+    cover: string;
+    // genre: string[];
+    release: string | Date;
 }
 
 export default async function MangaList() {

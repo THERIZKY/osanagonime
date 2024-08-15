@@ -2,28 +2,22 @@ import Image from "next/image";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 
 interface dataMangaProps {
-    id: string;
+    id: number;
     cover: string;
     deskripsi: string;
-    mangaTitle: string;
-    genre: string[];
-    published_at: string | Date;
+    judul: string;
+    // genre: string[];
+    release: string | Date;
     slug: string;
 }
 
-const MangaDetailPage = async ({
-    dataManga,
-}: {
-    dataManga?: dataMangaProps;
-}) => {
+const MangaDetailPage = async ({ dataManga }: { dataManga?: dataMangaProps }) => {
     return (
         <>
             <div className="pb-4">
                 {dataManga && (
                     <div className="max-h-full bg-slate-900">
-                        <div
-                            className={`hero min-h-[100%] overflow-hidden bg-base-200/75`}
-                        >
+                        <div className={`hero min-h-[100%] overflow-hidden bg-base-200/75`}>
                             <div className="hero-content flex-col lg:flex-row">
                                 <Image
                                     width={200}
@@ -33,32 +27,20 @@ const MangaDetailPage = async ({
                                     alt=""
                                 />
                                 <div>
-                                    <h1 className="text-5xl font-bold">
-                                        {dataManga.mangaTitle}
-                                    </h1>
-                                    <p className="py-6">
-                                        {dataManga.deskripsi}
-                                    </p>
+                                    <h1 className="text-5xl font-bold">{dataManga.judul}</h1>
+                                    <p className="py-6">{dataManga.deskripsi}</p>
                                 </div>
                             </div>
                         </div>
 
-                        <Card
-                            className="h-[50vh] bg-[#1D232A]"
-                            shadow="none"
-                            radius="none"
-                        >
+                        <Card className="h-[50vh] bg-[#1D232A]" shadow="none" radius="none">
                             <CardBody className="p-3 text-small text-default-400">
                                 <div className="flex flex-col gap-5 text-center">
                                     <div className="w-full bg-gray-500 h-[2.5rem] rounded-xl grid place-items-center">
-                                        <h1 className="text-white">
-                                            Episode 1
-                                        </h1>
+                                        <h1 className="text-white">Episode 1</h1>
                                     </div>
                                     <div className="w-full bg-gray-500 h-[2.5rem] rounded-xl grid place-items-center">
-                                        <h1 className="text-white">
-                                            Episode 1
-                                        </h1>
+                                        <h1 className="text-white">Episode 1</h1>
                                     </div>
                                 </div>
                             </CardBody>

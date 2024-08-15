@@ -8,12 +8,7 @@ const Cards = ({ item, index }: any) => {
     const { push } = useRouter();
 
     return (
-        <Card
-            shadow="md"
-            key={index}
-            isPressable
-            onPress={() => push(`/manga/${item.slug}`)}
-        >
+        <Card shadow="md" key={index} isPressable onPress={() => push(`/manga/${item.slug}`)}>
             <CardBody className="overflow-visible p-0">
                 <Image
                     width={200}
@@ -24,7 +19,7 @@ const Cards = ({ item, index }: any) => {
                 />
             </CardBody>
             <CardFooter className="text-small justify-between">
-                <b>{item.mangaTitle.slice(0, 14)}...</b>
+                <b>{item.judul.slice(0, 14)}...</b>
                 <p className="text-default-500">{item.price}</p>
             </CardFooter>
         </Card>
