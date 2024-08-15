@@ -17,6 +17,35 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 
+const menuItems = [
+    {
+        title: "Manga",
+        icon: <HiBookOpen size={20} />,
+        links: [
+            { href: "/manga", label: "List Manga" },
+            { href: "/manga", label: "List Chapter" },
+            { href: "/manga", label: "List Genre" },
+        ],
+    },
+    {
+        title: "Anime",
+        icon: <HiTv size={20} />,
+        links: [
+            { href: "/manga", label: "List Anime" },
+            { href: "/manga", label: "List Episode" },
+            { href: "/manga", label: "List Season" },
+        ],
+    },
+    {
+        title: "Users",
+        icon: <HiUser size={20} />,
+        links: [
+            { href: "/manga", label: "List Users" },
+            { href: "/manga", label: "Users Settings" },
+        ],
+    },
+];
+
 interface SidebarProps {
     isMaximized: boolean;
     setIsSidebarMaximized: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,6 +53,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ isMaximized, setIsSidebarMaximized }) => {
     const [profileOpen, setProfileOpen] = useState(false);
+
     return (
         <motion.div
             initial={{ width: isMaximized ? "5rem" : "15rem" }}
@@ -34,125 +64,32 @@ const Sidebar: React.FC<SidebarProps> = ({ isMaximized, setIsSidebarMaximized })
             <Card radius="none" className="flex flex-col justify-between bg-slate-800 h-full p-3">
                 <div className="flex flex-col gap-4">
                     <h1 className="text-center">Sidebar</h1>
-                    {/* Dropdown Manga */}
-                    <DropdownMenu
-                        isMaximized={isMaximized}
-                        titleMenu="Manga"
-                        minimizedIcons={<HiBookOpen size={20} />}
-                    >
-                        <motion.li
-                            whileHover={{
-                                scale: 0.898,
-                                backgroundColor: "rgba(158, 158, 158, 0.3)",
-                                borderRadius: "1rem",
-                            }}
-                            className="p-2"
-                        >
-                            <Link className="flex w-full h-full " href="/manga">
-                                List Manga
-                            </Link>
-                        </motion.li>
-                        <motion.li
-                            whileHover={{
-                                scale: 0.898,
-                                backgroundColor: "rgba(158, 158, 158, 0.3)",
-                                borderRadius: "1rem",
-                            }}
-                            className="p-2"
-                        >
-                            <Link className="flex w-full h-full " href="/manga">
-                                List Chapter
-                            </Link>
-                        </motion.li>
-                        <motion.li
-                            whileHover={{
-                                scale: 0.898,
-                                backgroundColor: "rgba(158, 158, 158, 0.3)",
-                                borderRadius: "1rem",
-                            }}
-                            className="p-2"
-                        >
-                            <Link className="flex w-full h-full " href="/manga">
-                                List Genre
-                            </Link>
-                        </motion.li>
-                    </DropdownMenu>
 
-                    {/* Dropdown Anime */}
-                    <DropdownMenu
-                        isMaximized={isMaximized}
-                        titleMenu="Anime"
-                        minimizedIcons={<HiTv size={20} />}
-                    >
-                        <motion.li
-                            whileHover={{
-                                scale: 0.898,
-                                backgroundColor: "rgba(158, 158, 158, 0.3)",
-                                borderRadius: "1rem",
-                            }}
-                            className="p-2"
+                    {menuItems.map((menu, index) => (
+                        <DropdownMenu
+                            key={index}
+                            isMaximized={isMaximized}
+                            titleMenu={menu.title}
+                            minimizedIcons={menu.icon}
                         >
-                            <Link className="flex w-full h-full " href="/manga">
-                                List Anime
-                            </Link>
-                        </motion.li>
-                        <motion.li
-                            whileHover={{
-                                scale: 0.898,
-                                backgroundColor: "rgba(158, 158, 158, 0.3)",
-                                borderRadius: "1rem",
-                            }}
-                            className="p-2"
-                        >
-                            <Link className="flex w-full h-full " href="/manga">
-                                List Episode
-                            </Link>
-                        </motion.li>
-                        <motion.li
-                            whileHover={{
-                                scale: 0.898,
-                                backgroundColor: "rgba(158, 158, 158, 0.3)",
-                                borderRadius: "1rem",
-                            }}
-                            className="p-2"
-                        >
-                            <Link className="flex w-full h-full " href="/manga">
-                                List Season
-                            </Link>
-                        </motion.li>
-                    </DropdownMenu>
+                            {menu.links.map((link, index) => (
+                                <motion.li
+                                    key={index}
+                                    whileHover={{
+                                        scale: 0.898,
+                                        backgroundColor: "rgba(158, 158, 158, 0.3)",
+                                        borderRadius: "1rem",
+                                    }}
+                                    className="p-2"
+                                >
+                                    <Link className="flex w-full h-full" href={link.href}>
+                                        {link.label}
+                                    </Link>
+                                </motion.li>
+                            ))}
+                        </DropdownMenu>
+                    ))}
 
-                    {/* Dropdown Users */}
-                    <DropdownMenu
-                        isMaximized={isMaximized}
-                        titleMenu="Users"
-                        minimizedIcons={<HiUser size={20} />}
-                    >
-                        <motion.li
-                            whileHover={{
-                                scale: 0.898,
-                                backgroundColor: "rgba(158, 158, 158, 0.3)",
-                                borderRadius: "1rem",
-                            }}
-                            className="p-2"
-                        >
-                            <Link className="flex w-full h-full " href="/manga">
-                                List Users
-                            </Link>
-                        </motion.li>
-                        <motion.li
-                            whileHover={{
-                                scale: 0.898,
-                                backgroundColor: "rgba(158, 158, 158, 0.3)",
-                                borderRadius: "1rem",
-                            }}
-                            className="p-2"
-                        >
-                            <Link className="flex w-full h-full " href="/manga">
-                                Users Settings
-                            </Link>
-                        </motion.li>
-                    </DropdownMenu>
                     <Button variant="light" onClick={() => setIsSidebarMaximized(!isMaximized)}>
                         {isMaximized ? (
                             <HiChevronDoubleLeft size={50} />
@@ -161,6 +98,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isMaximized, setIsSidebarMaximized })
                         )}
                     </Button>
                 </div>
+
                 <div className="flex flex-col">
                     <AnimatePresence initial={false}>
                         {isMaximized && profileOpen && (
@@ -172,26 +110,23 @@ const Sidebar: React.FC<SidebarProps> = ({ isMaximized, setIsSidebarMaximized })
                                 className="overflow-hidden"
                             >
                                 <ul className="flex flex-col py-5 px-2 rounded-lg mb-2 bg-gray-600/50">
-                                    <li>
-                                        <Link href={""}>
-                                            <motion.li
-                                                whileHover={{
-                                                    scale: 0.898,
-                                                    backgroundColor: "rgba(158, 158, 158, 0.3)",
-                                                    borderRadius: "1rem",
-                                                }}
-                                                className="p-2"
-                                            >
-                                                <Link className="flex w-full h-full " href="">
-                                                    Log Out
-                                                </Link>
-                                            </motion.li>
+                                    <motion.li
+                                        whileHover={{
+                                            scale: 0.898,
+                                            backgroundColor: "rgba(158, 158, 158, 0.3)",
+                                            borderRadius: "1rem",
+                                        }}
+                                        className="p-2"
+                                    >
+                                        <Link className="flex w-full h-full" href="">
+                                            Log Out
                                         </Link>
-                                    </li>
+                                    </motion.li>
                                 </ul>
                             </motion.div>
                         )}
                     </AnimatePresence>
+
                     <Button variant="light" onClick={() => setProfileOpen(!profileOpen)}>
                         <HiUserCircle size={50} />
                     </Button>

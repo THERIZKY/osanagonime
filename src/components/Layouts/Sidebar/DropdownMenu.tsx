@@ -2,30 +2,26 @@ import { Button } from "@nextui-org/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
-const DropdownMenu = ({
+interface DropdownMenuProps {
+    children: React.ReactNode;
+    isMaximized: boolean;
+    titleMenu?: string;
+    minimizedIcons?: React.ReactNode;
+}
+
+const DropdownMenu: React.FC<DropdownMenuProps> = ({
     children,
     isMaximized,
     titleMenu = "Menu",
     minimizedIcons,
-}: {
-    children: React.ReactNode;
-    minimizedIcons?: React.ReactNode;
-    isMaximized: boolean;
-    titleMenu?: string;
 }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <div className="w-full flex flex-col">
-            <Button variant="light" radius="md" className="" onClick={() => setIsOpen(!isOpen)}>
-                {isMaximized ? (
-                    <>
-                        {minimizedIcons}
-                        {titleMenu}
-                    </>
-                ) : (
-                    minimizedIcons
-                )}
+            <Button variant="light" radius="md" onClick={() => setIsOpen(!isOpen)}>
+                {minimizedIcons}
+                {isMaximized && <span>{titleMenu}</span>}
             </Button>
             <AnimatePresence initial={false}>
                 {isMaximized && isOpen && (
