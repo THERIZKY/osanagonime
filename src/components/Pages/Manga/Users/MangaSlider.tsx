@@ -1,5 +1,5 @@
 import NavigationBottom from "@/components/Layouts/ReadMangaNav";
-import ImageSlide from "@/components/Layouts/User/MangaSlider";
+import ImageSlide from "@/components/Layouts/MangaSlider/MangaSlider";
 import { getDetailedChapterForRead } from "@/utils/model/chapterModel";
 import { notFound, redirect } from "next/navigation";
 

@@ -16,32 +16,33 @@ import {
 // Next JS
 import Link from "next/link";
 import { useState } from "react";
+import { signOut } from "next-auth/react";
 
 const menuItems = [
     {
         title: "Manga",
         icon: <HiBookOpen size={20} />,
         links: [
-            { href: "/manga", label: "List Manga" },
-            { href: "/manga", label: "List Chapter" },
-            { href: "/manga", label: "List Genre" },
+            { href: "/admin/manga", label: "List Manga" },
+            { href: "/admin/chapter", label: "List Chapter" },
+            { href: "/admin/manga/genre", label: "List Genre" },
         ],
     },
     {
         title: "Anime",
         icon: <HiTv size={20} />,
         links: [
-            { href: "/manga", label: "List Anime" },
-            { href: "/manga", label: "List Episode" },
-            { href: "/manga", label: "List Season" },
+            { href: "/admin/anime", label: "List Anime" },
+            { href: "/admin/episode", label: "List Episode" },
+            { href: "/admin/anime/genre", label: "List Genre" },
         ],
     },
     {
         title: "Users",
         icon: <HiUser size={20} />,
         links: [
-            { href: "/manga", label: "List Users" },
-            { href: "/manga", label: "Users Settings" },
+            { href: "/admin/users", label: "List Users" },
+            { href: "/admin/users/settings", label: "Users Settings" },
         ],
     },
 ];
@@ -80,7 +81,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isMaximized, setIsSidebarMaximized })
                                         backgroundColor: "rgba(158, 158, 158, 0.3)",
                                         borderRadius: "1rem",
                                     }}
-                                    className="p-2"
+                                    className="p-5 border border-t-0 border-b-gray-700 border-x-0"
                                 >
                                     <Link className="flex w-full h-full" href={link.href}>
                                         {link.label}
@@ -118,7 +119,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isMaximized, setIsSidebarMaximized })
                                         }}
                                         className="p-2"
                                     >
-                                        <Link className="flex w-full h-full" href="">
+                                        <Link
+                                            className="flex w-full h-full"
+                                            href={""}
+                                            onClick={() => signOut({ callbackUrl: "/login" })}
+                                        >
                                             Log Out
                                         </Link>
                                     </motion.li>

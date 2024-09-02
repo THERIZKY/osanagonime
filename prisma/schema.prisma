@@ -8,6 +8,11 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model Chapter {
   id           Int      @id @unique @default(autoincrement())
   judulChapter String
@@ -25,4 +30,12 @@ model Manga {
   cover     String
   release   DateTime  @default(now())
   Chapter   Chapter[]
+}
+
+model Users {
+  idUser   Int    @id @unique @default(autoincrement())
+  username String @default("anonymous")
+  email    String
+  password String
+  role     Role   @default(USER)
 }

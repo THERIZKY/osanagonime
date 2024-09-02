@@ -13,8 +13,8 @@ const SidebarWrapper = ({ children }: { children: React.ReactNode }) => {
 
             {/* Main content area with dynamic margin */}
             <motion.div
-                initial={{ marginLeft: isMaximized ? "15rem" : "5rem" }}
-                animate={{ marginLeft: isMaximized ? "15rem" : "5rem" }}
+                initial={{ marginLeft: isMaximized ? "16rem" : "6rem" }}
+                animate={{ marginLeft: isMaximized ? "16rem" : "6rem" }}
                 transition={{ duration: 0.355 }}
                 className="flex-1"
             >

@@ -32,7 +32,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                         transition={{ duration: 0.355 }}
                         className="overflow-hidden"
                     >
-                        <ul className="flex flex-col gap-5">{children}</ul>
+                        <ul className="flex flex-col">{children}</ul>
                     </motion.div>
                 )}
             </AnimatePresence>

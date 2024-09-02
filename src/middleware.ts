@@ -1,13 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { withAuth } from "next-auth/middleware";
 
-export async function middleware(req: NextRequest) {
-    const login = true;
-
-    if (!login) {
-        return NextResponse.redirect(new URL("/login", req.url));
-    }
-}
+export default function middleware(req: NextRequest) {}
 
 export const config = {
     matcher: ["/admin/:path*"],
